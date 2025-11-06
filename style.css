@@ -198,3 +198,10 @@ body {
 
 /* 헤더 전용(특이성 강화) */
 .title .em.yellow { color: #ffd86b !important; }
+
+/* a 태그도 버튼처럼 보이게 (nav-btn 공통 스타일 보정) */
+.nav-btn {
+  display: block;           /* a를 버튼처럼 */
+  text-align: center;       /* 가운데 정렬 */
+  text-decoration: none;    /* 밑줄 제거 */
+}

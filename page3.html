@@ -1,0 +1,100 @@
+<!-- page3.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>너와 나의 산책 — 캐릭터 설명</title>
+<link rel="stylesheet" href="style.css?v=11" />
+</head>
+<body>
+<main class="container">
+  <div class="card">
+    <div class="toolbar">
+      <a class="link" href="#" id="logout">나가기</a>
+    </div>
+
+    <h1 class="title"><span class="em yellow">캐릭터 설명</span></h1>
+
+    <div class="section">
+      <p><strong>담당 캐릭터 선택</strong><br>
+      플레이어는 <span class="yellow">우즈 / 띠띠</span> 중에 플레이할 캐릭터를 선택해 주세요.</p>
+
+      <hr class="divider" />
+
+      <!-- 0. 헤일리 -->
+      <h3><strong>0. 헤일리 (28세)</strong></h3>
+      <p>살해당한 피해자.
+        <br>우즈의 아내이자, 갓 태어난 띠띠를 14년간 키워온 인물.
+        <br>최근 떠오르는 모델. 성별은 여성.</p>
+
+      <!-- 1. 우즈 -->
+      <h3><strong><span class="yellow">1. 우즈 (31세)</span></strong></h3>
+      <p>헤일리의 남편.
+         <br>5년 연애 끝에 헤일리와 결혼했고, 띠띠와 함께 산 지 3년째인 인물.
+         <br>실력 있는 사진작가. 성별은 남성</p>
+         <p>*본 이야기에서 우즈와 띠띠는 대화가 가능하다는 설정입니다.</p>
+      <a class="nav-btn" href="woods.html">우즈 캐릭터 선택</a>
+
+      <!-- 2. 띠띠 -->
+      <h3><strong><span class="yellow">2. 띠띠 (14세)</span></strong></h3>
+      <p>골든 리트리버.
+        <br>태어나자마자 헤일리에게 입양된 골든 리트리버.
+        <br>한때 천재견으로 불렸으나 지금은 쇠약해진 노견. 성별은 수컷.</p>
+      <p>*본 이야기에서 띠띠와 우즈는 대화가 가능하다는 설정입니다.</p>
+      <a class="nav-btn" href="ttiti.html">띠띠 캐릭터 선택</a>
+
+      <hr class="divider" />
+
+      <!-- 3~7 NPC -->
+      <h3><strong>3. 제이슨 (28세) <span class="yellow">*NPC</span></strong></h3>
+      <p>헤일리의 고교 동창.
+        <br>헤일리가 우즈와 사귀기 전 마지막 연인으로 알려진 인물.
+        <br>성격 좋은 프리랜서. 성별은 남성.</p>
+
+      <h3><strong>4. 톰 (31세) <span class="yellow">*NPC</span></strong></h3>
+      <p>헤일리의 친오빠.
+        <br>시골 마을 인근 소규모 병원에서 근무하는 인물.
+        <br>까칠한 외과의사. 성별은 남성.</p>
+
+      <h3><strong>5. 마크 (33세) <span class="yellow">*NPC</span></strong></h3>
+      <p>우즈의 직장 동료.
+        <br>우즈의 대학 선배로, 8년 전 우즈를 이 마을로 스카우트한 인물.
+        <br>평범한 사진작가. 성별은 남성.</p>
+
+      <h3><strong>6. 레오 (35세) <span class="yellow">*NPC</span></strong></h3>
+      <p>우즈의 고객.
+        <br>헤일리와 우즈가 사는 마을에 최근 이사 온 인물.
+        <br>야심 찬 부동산 업자. 성별은 남성.</p>
+
+      <h3><strong>7. 루카스 (37세) <span class="yellow">*NPC</span></strong></h3>
+      <p>띠띠의 주치의.
+        <br>띠띠가 입양된 순간부터 건강을 돌봐온 인물.
+        <br>친절한 수의사. 성별은 남성.</p>
+
+      <hr class="divider" />
+
+      <!-- 이전 버튼만 -->
+      <div class="nav-buttons">
+        <a class="nav-btn prev" href="page2.html">이전(진행 순서)</a>
+      </div>
+    </div>
+
+    <hr class="custom-hr" />
+    <section>
+      <p class="made">© Copyright 2025. 보또 All rights reserved.</p>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+  import { guard, logout } from "./gate.js";
+  guard();
+
+  document.querySelector('#logout')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    logout();
+  });
+</script>
+</body>
+</html>
