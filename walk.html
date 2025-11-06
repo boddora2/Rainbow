@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>너와 나의 산책 — 메인</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main class="container">
+<div class="card">
+<div class="toolbar">
+<a class="link" href="#" id="logout">로그아웃</a>
+</div>
+<h1 class="title"><span class="em">너와 나의 산책</span></h1>
+<div class="section">
+<p>여기에 실제 콘텐츠를 넣으면 됩니다. 예: 시놉시스, 규칙, 진행 순서, 카드 리스트 등.</p>
+<ul>
+<li>플레이 인원: 2인</li>
+<li>장르: 머더 미스터리</li>
+<li>세션 길이: 60–90분</li>
+</ul>
+</div>
+</div>
+</main>
+
+<script type="module">
+import { guard, logout } from "./gate.js";
+// 페이지 접근 보호
+guard();
+// 로그아웃 버튼
+document.querySelector('#logout')?.addEventListener('click', (e) => {
+e.preventDefault();
+logout();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+:root {
+    --bg: #0b0b0f;
+    --card: #15151c;
+    --text: #e9e9f1;
+    --muted: #a0a0b8;
+    --accent: #6ea8fe;
+    --danger: #ff6b6b;
+    --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+    margin: 0; background: radial-gradient(1200px 800px at 70% 20%, #1c1c27, var(--bg));
+    color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, sans-serif;
+    }
+    .container {
+    min-height: 100%; display: grid; place-items: center; padding: 40px 16px;
+    }
+    .card {
+    width: min(640px, 92vw); background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 40px 28px; backdrop-filter: blur(8px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+    .title { margin: 0 0 10px; line-height: 1.3; font-size: 28px; font-weight: 700; text-align: center; }
+    .title .em { font-size: 34px; font-weight: 800; letter-spacing: 0.02em; }
+    .desc { margin: 4px 0 28px; color: var(--muted); text-align: center; }
+    .label { display: block; margin: 0 0 10px; font-weight: 600; }
+    #pw {
+    width: 100%; height: 48px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
+    background: #0f0f15; color: var(--text); padding: 0 14px; outline: none; font-size: 16px;
+    }
+    #pw:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(110,168,254,0.25); }
+    .btn {
+    width: 100%; margin-top: 14px; height: 46px; border: 0; border-radius: 12px; font-weight: 700; font-size: 16px;
+    background: linear-gradient(90deg, #6ea8fe, #9ad0ff); color: #0c0e14; cursor: pointer;
+    }
+    .btn:active { transform: translateY(1px); }
+    .msg { height: 22px; margin-top: 10px; color: var(--danger); text-align: center; }
+    .shake { animation: shake 320ms ease-in-out; }
+    @keyframes shake {
+    10%, 90% { transform: translateX(-2px); }
+    20%, 80% { transform: translateX(3px); }
+    30%, 50%, 70% { transform: translateX(-5px); }
+    40%, 60% { transform: translateX(5px); }
+    }
+    
+    /* walk.html 내부 섹션도 동일 스타일 재사용을 위해 약간의 여백만 */
+    .section { max-width: 800px; margin: 0 auto; line-height: 1.7; }
+    .toolbar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 18px; }
+    .link { color: #bcd3ff; text-decoration: underline; cursor: pointer; }
