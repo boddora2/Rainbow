@@ -8,30 +8,58 @@
 </head>
 <body>
 <main class="container">
-<div class="card">
-<div class="toolbar">
-<a class="link" href="#" id="logout">로그아웃</a>
-</div>
-<h1 class="title"><span class="em">너와 나의 산책</span></h1>
-<div class="section">
-<p>여기에 실제 콘텐츠를 넣으면 됩니다. 예: 시놉시스, 규칙, 진행 순서, 카드 리스트 등.</p>
-<ul>
-<li>플레이 인원: 2인</li>
-<li>장르: 머더 미스터리</li>
-<li>세션 길이: 60–90분</li>
-</ul>
-</div>
-</div>
+  <div class="card">
+    <div class="toolbar">
+      <a class="link" href="#" id="logout">나가기</a>
+    </div>
+
+    <h1 class="title"><span class="em">사건의 배경</span></h1>
+
+    <div class="section">
+      <p>
+        한적한 시골 마을에 사는 어느 젊은 부부와 그들의 곁을 지키는 노견 한 마리는 평온한 일상을 보내고 있었다.
+        그러던 어느 가을날, 남편이 일주일간의 출장에 나가 있던 사이, 아내가 자택에서 살해당하는데…
+      </p>
+
+      <ul>
+        <li>플레이 인원: 2인</li>
+        <li>장르: 머더 미스터리</li>
+        <li>세션 길이: 60–90분</li>
+      </ul>
+
+      <hr class="divider" />
+
+      <h1 class="title"><span class="em">기본 규칙</span></h1>
+
+      <ul>
+        <li>플레이어는 거짓말을 할 수 있습니다.</li>
+        <li>사인은 타살이며, 공범이 없는 단독 범행입니다.</li>
+      </ul>
+
+      <button class="next-btn" id="next">다음(규칙)</button>
+
+    </div> <!-- ✅ section 닫힘 완료 -->
+
+    <hr class="custom-hr">
+    <section>
+      <p class="made"> &copy; Copyright 2025. 보또 All rights reserved. </p>
+    </section>
+
+  </div>
 </main>
 
 <script type="module">
 import { guard, logout } from "./gate.js";
-// 페이지 접근 보호
+
 guard();
-// 로그아웃 버튼
+
 document.querySelector('#logout')?.addEventListener('click', (e) => {
-e.preventDefault();
-logout();
+  e.preventDefault();
+  logout();
+});
+
+document.querySelector('#next')?.addEventListener('click', () => {
+  location.href = "page2.html";
 });
 </script>
 </body>

@@ -48,3 +48,44 @@
     .section { max-width: 800px; margin: 0 auto; line-height: 1.7; }
     .toolbar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 18px; }
     .link { color: #bcd3ff; text-decoration: underline; cursor: pointer; }
+
+    .divider {
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.15);
+        margin: 28px 0;
+      }
+      
+      .next-btn {
+        width: 100%;
+        margin-top: 16px;
+        padding: 12px 0;
+        border: 0;
+        border-radius: 12px;
+        background: linear-gradient(90deg, #6ea8fe, #9ad0ff);
+        color: #0c0e14;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+      
+      .next-btn:active {
+        transform: translateY(1px);
+      }
+
+      .custom-hr {
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        margin: 40px 0 16px;
+      }
+      
+      .made {
+        font-size: 13px;
+        text-align: center;
+        color: rgba(255,255,255,0.35);
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+        user-select: none;
+      }
+      
+      
