@@ -154,3 +154,42 @@ body {
   .title .em { font-size: 28px; }
   .card { padding: 28px 20px; }
 }
+
+/* 강조 색상 (노란빛 포인트) */
+.yellow {
+  color: #ffd86b !important; /* 부드러운 노랑 */
+  font-weight: 800;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.nav-btn {
+  flex: 1; /* 반반 너비 자동 */
+  padding: 12px 0;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #6ea8fe, #9ad0ff);
+  color: #0c0e14;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.nav-btn:active { transform: translateY(1px); }
+
+/* 이전 버튼만 은은하게 — 색 반전 */
+.nav-btn.prev {
+  background: transparent;
+  color: #e9e9f1;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.nav-btn.prev:hover {
+  background: rgba(255,255,255,0.07);
+}
+
