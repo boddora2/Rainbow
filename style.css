@@ -1,91 +1,156 @@
+/* ===== Base Theme ===== */
 :root {
-    --bg: #0b0b0f;
-    --card: #15151c;
-    --text: #e9e9f1;
-    --muted: #a0a0b8;
-    --accent: #6ea8fe;
-    --danger: #ff6b6b;
-    --radius: 18px;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-    margin: 0; background: radial-gradient(1200px 800px at 70% 20%, #1c1c27, var(--bg));
-    color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, sans-serif;
-    }
-    .container {
-    min-height: 100%; display: grid; place-items: center; padding: 40px 16px;
-    }
-    .card {
-    width: min(640px, 92vw); background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 40px 28px; backdrop-filter: blur(8px);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    }
-    .title { margin: 0 0 10px; line-height: 1.3; font-size: 28px; font-weight: 700; text-align: center; }
-    .title .em { font-size: 34px; font-weight: 800; letter-spacing: 0.02em; }
-    .desc { margin: 4px 0 28px; color: var(--muted); text-align: center; }
-    .label { display: block; margin: 0 0 10px; font-weight: 600; }
-    #pw {
-    width: 100%; height: 48px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
-    background: #0f0f15; color: var(--text); padding: 0 14px; outline: none; font-size: 16px;
-    }
-    #pw:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(110,168,254,0.25); }
-    .btn {
-    width: 100%; margin-top: 14px; height: 46px; border: 0; border-radius: 12px; font-weight: 700; font-size: 16px;
-    background: linear-gradient(90deg, #6ea8fe, #9ad0ff); color: #0c0e14; cursor: pointer;
-    }
-    .btn:active { transform: translateY(1px); }
-    .msg { height: 22px; margin-top: 10px; color: var(--danger); text-align: center; }
-    .shake { animation: shake 320ms ease-in-out; }
-    @keyframes shake {
-    10%, 90% { transform: translateX(-2px); }
-    20%, 80% { transform: translateX(3px); }
-    30%, 50%, 70% { transform: translateX(-5px); }
-    40%, 60% { transform: translateX(5px); }
-    }
-    
-    /* walk.html 내부 섹션도 동일 스타일 재사용을 위해 약간의 여백만 */
-    .section { max-width: 800px; margin: 0 auto; line-height: 1.7; }
-    .toolbar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 18px; }
-    .link { color: #bcd3ff; text-decoration: underline; cursor: pointer; }
+  --bg: #0b0b0f;
+  --card: #15151c;
+  --text: #e9e9f1;
+  --muted: #a0a0b8;
+  --accent: #6ea8fe;
+  --danger: #ff6b6b;
+  --radius: 18px;
+}
 
-    .divider {
-        border: none;
-        border-top: 1px solid rgba(255,255,255,0.15);
-        margin: 28px 0;
-      }
-      
-      .next-btn {
-        width: 100%;
-        margin-top: 16px;
-        padding: 12px 0;
-        border: 0;
-        border-radius: 12px;
-        background: linear-gradient(90deg, #6ea8fe, #9ad0ff);
-        color: #0c0e14;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: transform 0.15s;
-      }
-      
-      .next-btn:active {
-        transform: translateY(1px);
-      }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 
-      .custom-hr {
-        border: none;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        margin: 40px 0 16px;
-      }
-      
-      .made {
-        font-size: 13px;
-        text-align: center;
-        color: rgba(255,255,255,0.35);
-        letter-spacing: 0.5px;
-        margin-bottom: 4px;
-        user-select: none;
-      }
-      
-      
+body {
+  margin: 0;
+  background: radial-gradient(1200px 800px at 70% 20%, #1c1c27, var(--bg));
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, sans-serif;
+}
+
+/* ===== Layout ===== */
+.container {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 40px 16px;
+}
+
+.card {
+  width: min(640px, 92vw);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 40px 28px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  overflow: visible; /* 내부 요소 잘림 방지 */
+}
+
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.7;
+  padding-bottom: 12px; /* 버튼 하단 여백 확보 */
+}
+
+/* ===== Typography ===== */
+.title {
+  margin: 0 0 10px;
+  line-height: 1.3;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+.title .em { font-size: 34px; font-weight: 800; letter-spacing: 0.02em; }
+
+.desc { margin: 4px 0 28px; color: var(--muted); text-align: center; }
+.label { display: block; margin: 0 0 10px; font-weight: 600; }
+
+/* ===== Toolbar / Links ===== */
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.link { color: #bcd3ff; text-decoration: underline; cursor: pointer; }
+
+/* ===== Index: Password Form ===== */
+#pw {
+  width: 100%;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: #0f0f15;
+  color: var(--text);
+  padding: 0 14px;
+  outline: none;
+  font-size: 16px;
+}
+#pw:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(110,168,254,0.25);
+}
+
+.btn {
+  width: 100%;
+  margin-top: 14px;
+  height: 46px;
+  border: 0;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  background: linear-gradient(90deg, #6ea8fe, #9ad0ff);
+  color: #0c0e14;
+  cursor: pointer;
+}
+.btn:active { transform: translateY(1px); }
+
+.msg { height: 22px; margin-top: 10px; color: var(--danger); text-align: center; }
+
+.shake { animation: shake 320ms ease-in-out; }
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(5px); }
+}
+
+/* ===== Content Helpers ===== */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin: 28px 0;
+}
+
+/* 다음 버튼 (walk.html 등) */
+.next-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 0;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #6ea8fe, #9ad0ff);
+  color: #0c0e14;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.next-btn:active { transform: translateY(1px); }
+
+/* ===== Footer ===== */
+.custom-hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  margin: 40px 0 10px;
+}
+
+.made {
+  font-size: 13px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45); /* 연한 회색 */
+  letter-spacing: 0.3px;
+  margin: 10px 0 0;
+  user-select: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 360px) {
+  .title { font-size: 24px; }
+  .title .em { font-size: 28px; }
+  .card { padding: 28px 20px; }
+}
