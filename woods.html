@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>너와 나의 산책 — 우즈</title>
+<link rel="stylesheet" href="style.css?v=13" />
+
+<!-- 페이지 전용: 아코디언 스타일 -->
+<style>
+/* 기본 마커 제거 + 클릭 영역 확장 */
+.acc { border-top: 1px solid rgba(255,255,255,0.12); }
+.acc:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+.acc summary {
+  list-style: none; cursor: pointer; padding: 14px 28px 14px 0; margin: 0;
+  font-weight: 700; font-size: 16px; position: relative;
+}
+.acc summary::-webkit-details-marker { display: none; }
+
+/* 화살표 표시 */
+.acc summary::after {
+  content: '▾'; position: absolute; right: 0; top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transition: transform .2s ease;
+  opacity: .9;
+}
+.acc[open] summary::after { transform: translateY(-50%) rotate(0deg); }
+
+/* 펼쳐진 본문 */
+.acc .acc-body { padding: 8px 0 16px; color: var(--muted); line-height: 1.75; }
+
+/* 제목 라인 강조(선택) */
+.acc summary .label { font-weight: 800; }
+</style>
+</head>
+<body>
+<main class="container">
+  <div class="card">
+    <div class="toolbar">
+      <a class="link" href="#" id="logout">나가기</a>
+    </div>
+
+    <h1 class="title"><span class="em yellow">우즈</span> — 진행 단계</h1>
+
+    <div class="section">
+
+      <details class="acc">
+        <summary><span class="label">1차 대본 읽기</span></summary>
+        <div class="acc-body">
+          여기에 1차 대본 지시/대사 요약 또는 링크를 넣어라.
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span class="label">기본 설정서 확인</span></summary>
+        <div class="acc-body">
+          우즈의 설정서(배경, 목표, 금지 발언 등)를 넣어라.
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span class="label">2차 대본 읽기</span></summary>
+        <div class="acc-body">
+          여기에 2차 대본 지시/대사 요약 또는 링크를 넣어라.
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span class="label">1차 조사 및 논의</span></summary>
+        <div class="acc-body">
+          조사 가능 범위, 질문 가이드, 시간(예: <span class="yellow">【20분】</span>)을 명시하라.
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span class="label">3차 대본 읽기</span></summary>
+        <div class="acc-body">
+          여기에 3차 대본 지시/대사 요약 또는 링크를 넣어라.
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span class="label">추가 자료 확인</span></summary>
+        <div class="acc-body">
+          증거/추가 자료 목록과 열람 규칙을 넣어라.
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span class="label">2차 조사 및 논의</span></summary>
+        <div class="acc-body">
+          두 번째 토의 지침과 제한 사항을 넣어라.
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span class="label">투표 및 엔딩 확인</span></summary>
+        <div class="acc-body">
+          투표 규칙, 동점 처리, 엔딩 확인 순서를 넣어라.
+        </div>
+      </details>
+
+      <hr class="divider" />
+
+      <!-- 내비게이션 -->
+      <div class="nav-buttons">
+        <a class="nav-btn" href="vote.html">다음(투표·엔딩)</a>
+        <a class="nav-btn prev" href="page3.html">이전(캐릭터 설명)</a>
+      </div>
+    </div>
+
+    <hr class="custom-hr" />
+    <section>
+      <p class="made">© Copyright 2025. 보또 All rights reserved.</p>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+  import { guard, logout } from "./gate.js";
+  guard();
+
+  document.querySelector('#logout')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    logout();
+  });
+</script>
+</body>
+</html>
