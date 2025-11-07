@@ -4,32 +4,50 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>너와 나의 산책 — 우즈</title>
-<link rel="stylesheet" href="style.css?v=13" />
+<link rel="stylesheet" href="style.css?v=14" />
 
-<!-- 페이지 전용: 아코디언 스타일 -->
+<!-- 페이지 전용: 아코디언/노트 스타일 -->
 <style>
-/* 기본 마커 제거 + 클릭 영역 확장 */
+/* 안내 문구 */
+.note {
+  padding: 12px 14px;
+  border: 1px dashed rgba(255,255,255,0.18);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+/* 아코디언 */
 .acc { border-top: 1px solid rgba(255,255,255,0.12); }
 .acc:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+
 .acc summary {
-  list-style: none; cursor: pointer; padding: 14px 28px 14px 0; margin: 0;
-  font-weight: 700; font-size: 16px; position: relative;
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 28px 14px 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  position: relative;
 }
 .acc summary::-webkit-details-marker { display: none; }
 
-/* 화살표 표시 */
+/* 화살표: 닫힘=아래(▾), 열림=위(▴) */
 .acc summary::after {
-  content: '▾'; position: absolute; right: 0; top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  transition: transform .2s ease;
+  content: '▾';
+  position: absolute; right: 0; top: 50%;
+  transform: translateY(-50%);
+  transition: opacity .2s ease;
   opacity: .9;
 }
-.acc[open] summary::after { transform: translateY(-50%) rotate(0deg); }
+.acc[open] summary::after { content: '▴'; }
 
 /* 펼쳐진 본문 */
 .acc .acc-body { padding: 8px 0 16px; color: var(--muted); line-height: 1.75; }
 
-/* 제목 라인 강조(선택) */
+/* 소제목 굵게 */
 .acc summary .label { font-weight: 800; }
 </style>
 </head>
@@ -43,6 +61,12 @@
     <h1 class="title"><span class="em yellow">우즈</span> — 진행 단계</h1>
 
     <div class="section">
+
+      <!-- 안내 문구 -->
+      <div class="note">
+        <p>당신이 플레이하는 캐릭터의 이름과 일치한다면 <span class="yellow">「1차 대본 읽기」</span>를 펼쳐 주세요.<br>
+        ※ 지시가 없는 항목은 <strong>펼치지 않도록</strong> 주의해 주세요.</p>
+      </div>
 
       <details class="acc">
         <summary><span class="label">1차 대본 읽기</span></summary>
@@ -102,10 +126,10 @@
 
       <hr class="divider" />
 
-      <!-- 내비게이션 -->
+      <!-- 내비게이션: 왼쪽=이전, 오른쪽=다음 -->
       <div class="nav-buttons">
-        <a class="nav-btn" href="vote.html">다음(투표·엔딩)</a>
         <a class="nav-btn prev" href="page3.html">이전(캐릭터 설명)</a>
+        <a class="nav-btn" href="vote.html">다음(투표·엔딩)</a>
       </div>
     </div>
 
@@ -119,10 +143,8 @@
 <script type="module">
   import { guard, logout } from "./gate.js";
   guard();
-
   document.querySelector('#logout')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    logout();
+    e.preventDefault(); logout();
   });
 </script>
 </body>

@@ -1,32 +1,52 @@
-<!-- ttiti.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>너와 나의 산책 — 띠띠</title>
-<link rel="stylesheet" href="style.css?v=13" />
+<link rel="stylesheet" href="style.css?v=14" />
 
-<!-- 페이지 전용: 아코디언 스타일 -->
 <style>
+/* 안내 문구 */
+.note {
+  padding: 12px 14px;
+  border: 1px dashed rgba(255,255,255,0.18);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+/* 아코디언 */
 .acc { border-top: 1px solid rgba(255,255,255,0.12); }
 .acc:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+
 .acc summary {
-  list-style: none; cursor: pointer; padding: 14px 28px 14px 0; margin: 0;
-  font-weight: 700; font-size: 16px; position: relative;
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 28px 14px 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  position: relative;
 }
 .acc summary::-webkit-details-marker { display: none; }
 
+/* 화살표: 닫힘=아래(▾), 열림=위(▴) */
 .acc summary::after {
-  content: '▾'; position: absolute; right: 0; top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  transition: transform .2s ease;
+  content: '▾';
+  position: absolute; right: 0; top: 50%;
+  transform: translateY(-50%);
+  transition: opacity .2s ease;
   opacity: .9;
 }
-.acc[open] summary::after { transform: translateY(-50%) rotate(0deg); }
+.acc[open] summary::after { content: '▴'; }
 
+/* 펼쳐진 본문 */
 .acc .acc-body { padding: 8px 0 16px; color: var(--muted); line-height: 1.75; }
 
+/* 소제목 굵게 */
 .acc summary .label { font-weight: 800; }
 </style>
 </head>
@@ -41,75 +61,74 @@
 
     <div class="section">
 
+      <!-- 안내 문구 -->
+      <div class="note">
+        <p>당신이 플레이하는 캐릭터의 이름과 일치한다면 <span class="yellow">「1차 대본 읽기」</span>를 펼쳐 주세요.<br>
+        ※ 지시가 없는 항목은 <strong>펼치지 않도록</strong> 주의해 주세요.</p>
+      </div>
+
       <details class="acc">
         <summary><span class="label">1차 대본 읽기</span></summary>
         <div class="acc-body">
-          이 시점에서 띠띠는 헤일리를 잃은 슬픔이 가장 크다.<br>
-          감정 톤을 너무 과장하기보다는, ‘멍한 충격’ 상태로 천천히 읽어주는 것이 좋다.
+          이 시점에서 띠띠는 헤일리를 잃은 슬픔이 크다. ‘멍한 충격’ 상태로 차분히 읽는 톤이 어울린다.
         </div>
       </details>
 
       <details class="acc">
         <summary><span class="label">기본 설정서 확인</span></summary>
         <div class="acc-body">
-          띠띠는 14년간 헤일리와 살았다.<br>
-          띠띠가 기억하고 있는 **작은 습관/소리/기억 조각**이 추리의 핵심이 된다.
+          14년간 함께한 기억 — 작은 습관/소리/냄새 같은 **감각 단서**가 추리의 핵심이 된다.
         </div>
       </details>
 
       <details class="acc">
         <summary><span class="label">2차 대본 읽기</span></summary>
         <div class="acc-body">
-          여기서 감정 변화가 생긴다.<br>
-          띠띠는 ‘누군가를 의심해야만 하는 상황’을 처음 마주한다.
+          의심이 처음 태어나는 구간. 감정선의 변화가 필요하다.
         </div>
       </details>
 
       <details class="acc">
         <summary><span class="label">1차 조사 및 논의</span></summary>
         <div class="acc-body">
-          띠띠는 논리보다 **기억의 단서**를 중심으로 대화해야 훨씬 설득력이 높다.<br>
-          감정선은 느리고 무겁게 유지하는 것이 좋다.
+          논리보다 **기억의 단서** 중심으로 말할수록 설득력이 높다.
         </div>
       </details>
 
       <details class="acc">
         <summary><span class="label">3차 대본 읽기</span></summary>
         <div class="acc-body">
-          이 시점에서 감정의 결론부가 다가온다.<br>
-          말이 많지 않아도 좋다. **말을 고를수록 서사가 강해진다.**
+          결론부로 향하는 대본. 말은 적되, **고른 문장**이 감정을 살린다.
         </div>
       </details>
 
       <details class="acc">
         <summary><span class="label">추가 자료 확인</span></summary>
         <div class="acc-body">
-          향 / 옷깃 / 발자국 / 손 냄새 / 문 열리는 소리.  
-          이 페이지에서 **촉각과 후각 중심의 단서를 활용**하면 가장 매력적으로 플레이 가능.
+          향 / 옷깃 / 발자국 / 손 냄새 / 문 여는 소리 등 **촉각·후각 단서**를 적극 활용한다.
         </div>
       </details>
 
       <details class="acc">
         <summary><span class="label">2차 조사 및 논의</span></summary>
         <div class="acc-body">
-          감정선을 한 번 더 정리하는 구간.<br>
-          **“내가 사랑한 사람들을 믿고 싶었다”** 라는 방향이 잘 어울린다.
+          “내가 사랑한 사람들을 믿고 싶었다”라는 마음을 한 번 더 정리하는 구간.
         </div>
       </details>
 
       <details class="acc">
         <summary><span class="label">투표 및 엔딩 확인</span></summary>
         <div class="acc-body">
-          이 단계에서는 말보다 **침묵의 무게**가 더 강하다.<br>
-          띠띠는 여기서 완성된다.
+          이 단계에서는 **침묵의 무게**가 더 강하다. 띠띠는 여기서 완성된다.
         </div>
       </details>
 
       <hr class="divider" />
 
+      <!-- 내비게이션: 왼쪽=이전, 오른쪽=다음 -->
       <div class="nav-buttons">
-        <a class="nav-btn" href="vote.html">다음(투표·엔딩)</a>
         <a class="nav-btn prev" href="page3.html">이전(캐릭터 설명)</a>
+        <a class="nav-btn" href="vote.html">다음(투표·엔딩)</a>
       </div>
     </div>
 
@@ -124,8 +143,7 @@
   import { guard, logout } from "./gate.js";
   guard();
   document.querySelector('#logout')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    logout();
+    e.preventDefault(); logout();
   });
 </script>
 </body>
