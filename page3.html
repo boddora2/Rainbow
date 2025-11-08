@@ -15,10 +15,12 @@
     </div>
 
     <h1 class="title"><span class="em yellow">캐릭터 설명</span></h1>
-
+    <br>
     <div class="section">
-      <p><strong>담당 캐릭터 선택</strong><br>
-      플레이어는 <span class="yellow">우즈 / 띠띠</span> 중에 플레이할 캐릭터를 선택해 주세요.</p>
+      <h3><strong>담당 캐릭터 선택</strong></h3>
+      <p>
+      각 플레이어는 <span class="yellow">【우즈】, 【띠띠】</span> 중에 플레이할 캐릭터를 선택해 주세요.
+      </p>
 
       <hr class="divider" />
 
@@ -33,15 +35,17 @@
       <p>헤일리의 남편.
          <br>5년 연애 끝에 헤일리와 결혼했고, 띠띠와 함께 산 지 3년째인 인물.
          <br>실력 있는 사진작가. 성별은 남성</p>
-         <p>*본 이야기에서 우즈와 띠띠는 대화가 가능하다는 설정입니다.</p>
+         <p>*본 작품에서 우즈와 띠띠는 대화가 가능해진다는 설정입니다.</p>
       <a class="nav-btn" href="woods.html">우즈 캐릭터 선택</a>
+      
+      <br>
 
       <!-- 2. 띠띠 -->
       <h3><strong><span class="yellow">2. 띠띠 (14세)</span></strong></h3>
       <p>골든 리트리버.
         <br>태어나자마자 헤일리에게 입양된 골든 리트리버.
         <br>한때 천재견으로 불렸으나 지금은 쇠약해진 노견. 성별은 수컷.</p>
-      <p>*본 이야기에서 띠띠와 우즈는 대화가 가능하다는 설정입니다.</p>
+        <p>*본 작품에서 띠띠와 우즈는 대화가 가능해진다는 설정입니다.</p>
       <a class="nav-btn" href="ttiti.html">띠띠 캐릭터 선택</a>
 
       <hr class="divider" />
@@ -91,10 +95,27 @@
   import { guard, logout } from "./gate.js";
   guard();
 
+  // 우즈 캐릭터 선택 확인
+  const woodsBtn = document.querySelector('a.nav-btn[href="woods.html"]');
+  woodsBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const ok = confirm("우즈 담당 플레이어가 맞습니까?");
+    if (ok) window.location.href = "woods.html";
+  });
+
+  // 띠띠 캐릭터 선택 확인
+  const ttitiBtn = document.querySelector('a.nav-btn[href="ttiti.html"]');
+  ttitiBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const ok = confirm("띠띠 담당 플레이어가 맞습니까?");
+    if (ok) window.location.href = "ttiti.html";
+  });
+
   document.querySelector('#logout')?.addEventListener('click', (e) => {
     e.preventDefault();
     logout();
   });
 </script>
+
 </body>
 </html>

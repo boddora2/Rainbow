@@ -51,7 +51,7 @@ if (digest === HASH_HEX) {
 saveAuth(digest);
 location.href = "walk.html"; // 실제 페이지로 이동
 } else {
-msg.textContent = "비밀번호가 올바르지 않습니다.";
+msg.textContent = "비밀번호가 올바르지 않습니다.<br>보또를 찬양해 주세요.";
 form.classList.add("shake");
 input.select();
 }
