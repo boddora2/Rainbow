@@ -182,15 +182,19 @@ body {
 
 .nav-btn:active { transform: translateY(1px); }
 
-/* 이전 버튼만 은은하게 — 색 반전 */
+/* 이전 버튼 = 흰색 배경 버튼 */
 .nav-btn.prev {
-  background: transparent;
-  color: #e9e9f1;
-  border: 1px solid rgba(255,255,255,0.18);
+  background: #ffffff;
+  color: #0c0e14;
+  border: none;
 }
 
 .nav-btn.prev:hover {
-  background: rgba(255,255,255,0.07);
+  background: #eaeaea;
+}
+
+.nav-btn.prev:active {
+  transform: translateY(1px);
 }
 
 /* 노란 강조 */
