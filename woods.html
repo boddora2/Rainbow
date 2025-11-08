@@ -6,7 +6,6 @@
 <title>너와 나의 산책 —우즈 페이지</title>
 <link rel="stylesheet" href="style.css?v=14" />
 
-<!-- 페이지 전용: 아코디언/노트 스타일 -->
 <style>
 /* 안내 문구 */
 .note {
@@ -22,33 +21,108 @@
 /* 아코디언 */
 .acc { border-top: 1px solid rgba(255,255,255,0.12); }
 .acc:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
-
 .acc summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 14px 28px 14px 0;
-  margin: 0;
-  font-weight: 700;
-  font-size: 16px;
-  position: relative;
+  list-style: none; cursor: pointer;
+  padding: 14px 28px 14px 0; margin: 0;
+  font-weight: 700; font-size: 16px; position: relative;
 }
 .acc summary::-webkit-details-marker { display: none; }
-
 /* 화살표: 닫힘=아래(▾), 열림=위(▴) */
 .acc summary::after {
   content: '▾';
   position: absolute; right: 0; top: 50%;
-  transform: translateY(-50%);
-  transition: opacity .2s ease;
-  opacity: .9;
+  transform: translateY(-50%); transition: opacity .2s ease; opacity: .9;
 }
 .acc[open] summary::after { content: '▴'; }
-
-/* 펼쳐진 본문 */
 .acc .acc-body { padding: 8px 0 16px; color: var(--muted); line-height: 1.75; }
-
-/* 소제목 굵게 */
 .acc summary .label { font-weight: 800; }
+
+/* ─────────────────────────────
+   대본 레이아웃: 말하는 사람 / 대사
+   ───────────────────────────── */
+.section .script {
+  display: grid;
+  grid-template-columns: 120px 1fr;   /* 왼쪽 고정, 오른쪽 가변 */
+  column-gap: 12px;
+  row-gap: 10px;
+  align-items: start;
+  margin: 14px 0 6px;
+}
+
+/* 각 대사 줄 */
+.script .line {
+  display: contents; /* 자식만 그리드에 올리고 부모는 흐름만 */
+}
+
+/* 왼쪽: 스피커(고정폭, 우측 정렬) */
+.script .speaker {
+  grid-column: 1 / 2;
+  justify-self: end;
+  text-align: right;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.2px;
+  line-height: 1.75;
+  padding-top: 2px;                /* 첫줄 높이 맞춤 */
+}
+
+/* 오른쪽: 대사(가변폭) */
+.script .utterance {
+  grid-column: 2 / -1;
+  line-height: 1.75;
+  color: #fff;
+  white-space: pre-wrap;           /* 줄바꿈/띄어쓰기 유지 */
+  word-break: keep-all;
+  padding: 8px 12px;
+  border-left: 2px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+}
+
+/* 내레이션/지문: 두 칸 전체 사용 */
+.script .narration {
+  grid-column: 1 / -1;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.03);
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.script .scene-divider {
+  grid-column: 1 / -1;
+  text-align: center;
+  opacity: .7;
+  letter-spacing: 2px;
+  margin: 4px 0;
+}
+
+/* 강조용 색 (원하면 스피커에 클래스 추가해서 사용) */
+.red{color:rgb(220,50,60)} .orange{color:rgb(220,140,80)}
+.yellow{color:rgb(230,190,90)} .green{color:rgb(100,160,100)}
+.blue{color:rgb(90,150,220)} .purple{color:rgb(160,100,190)}
+.pink{color:rgb(220,140,190)}
+
+/* 모바일: 세로 스택 + 시작점 유지 */
+@media (max-width: 680px) {
+  .section .script { grid-template-columns: 1fr; row-gap: 6px; }
+  .script .speaker {
+    justify-self: start; text-align: left;
+    padding: 2px 0 0; opacity: .9;
+  }
+  .script .utterance { border-left: 0; }
+}
+
+/* 내비 버튼 */
+.nav-buttons {
+  display:flex; justify-content:space-between; gap:12px; margin-top:16px;
+}
+.nav-btn {
+  display:inline-block; padding:10px 14px; border-radius:10px;
+  background:rgba(255,255,255,0.06); color:#fff; text-decoration:none;
+  border:1px solid rgba(255,255,255,0.12);
+}
+.nav-btn:hover { background:rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -56,22 +130,193 @@
   <div class="card">
     <p class="desc">BODDO SNACK MYSTERY</p>
     <br>
-
     <h1 class="title"><span class="em yellow">우즈</span></h1>
     <br>
-    <div class="section">
 
-      <!-- 안내 문구 -->
+    <div class="section">
       <div class="note">
         <p><span class="yellow">「1차 대본 읽기」</span>를 확인하세요.<br>
           <span class="yellow">※ 지시에 따라 순차적으로 진행합니다.</span></p>
       </div>
-    <br>
-      <details class="acc">
+      <br>
+
+      <details class="acc" open>
         <summary><span class="label">1차 대본 읽기</span></summary>
         <div class="acc-body">
           <p>준비되었다면 「1차 대본 읽기」를 진행해 주세요.</p>
-          <p>자신이 담당하는 캐릭터는 해당 플레이어가 읽습니다. 【마크】, 【톰】, 【루카스】, 【경찰】은 【우즈】 담당 플레이어가, 【제이슨】, 【레오】, 【마을 주민】, 【지문】은 【띠띠】 담당 플레이어가 읽어 주세요.</p>
+          <p>자신이 담당하는 캐릭터는 해당 플레이어가 읽습니다. <span class="yellow">【마크】, 【레오】, 【루카스】, 【경찰】은 【우즈】 담당 플레이어</span>가, 【제이슨】, 【톰】, 【마을 주민】, 【지문】은 【띠띠】 담당 플레이어가 읽어 주세요.</p>
+
+        <!-- ↓↓↓ 1차 대본 넣기 (단일 박스 + 좌/우 정렬 고정) ↓↓↓ -->
+        <section class="script-box" aria-label="1차 대본">
+        <style>
+        /* 스크립트 박스 전체 */
+        .script-box{
+        margin-top:12px;
+        padding:16px 18px;
+        border:1px solid rgba(255,255,255,0.12);
+        border-radius:12px;
+        background:rgba(255,255,255,0.03);
+        color:var(--muted);
+        }
+        /* 2열 그리드: 왼쪽 이름 칼럼 고정, 오른쪽 대사 가변 */
+        .script-grid{
+        display:grid;
+        grid-template-columns: 110px 1fr; /* ← 이름 폭 고정 (필요시 120~140px로 조절) */
+        column-gap:14px;
+        row-gap:14px;
+        line-height:1.7;
+        font-size:15px;
+        }
+        /* 한 줄(이름+대사) */
+        .line .name{
+        font-weight:800;
+        text-align:right;            /* 이름을 오른쪽 정렬 → 시선이 대사 시작점으로 깔끔하게 */
+        color: rgb(255, 255, 255);
+        white-space:nowrap;
+        }
+        .line .said{
+        color: rgb(255, 255, 255);
+        white-space:pre-wrap;        /* 줄바꿈/띄어쓰기 보존 */
+        word-break:keep-all;
+        padding: 6px 12px;
+        }
+        .narration{
+        grid-column: 1 / -1;
+        font-style: normal;     /* 기울임 제거 */
+        color: rgba(255,255,255,0.88);
+        line-height: 1.78;
+        padding: 0;             /* 여백 제거 */
+        margin: 4px 0 8px;      /* 위아래만 살짝 간격 */
+        border: none;           /* 모든 테두리 제거 */
+        background: none;       /* 배경 제거 */
+        }
+
+        .scene-divider{
+        grid-column:1 / -1;
+        text-align:center;
+        opacity:.7;
+        letter-spacing:.2em;
+        margin:6px 0;
+        }
+        /* 강조(선택 사항) */
+        .speaker-mark   { color: rgb(254, 186, 13); }
+        .speaker-jason  { color: rgb(255, 255, 255); }
+        .speaker-tom    { color: rgb(255, 255, 255); }
+        .speaker-lucas  { color: rgb(254, 186, 13); }
+        .speaker-leo    { color: rgb(254, 186, 13); }
+        .speaker-police { color: rgb(254, 186, 13); }
+        .speaker-woods  { color: rgb(254, 186, 13); }
+        .speaker-ttiti  { color: rgb(255, 255, 255); }
+        .speaker-people { color: rgb(255, 255, 255); }
+
+        /* 모바일 대응: 너무 좁을 땐 이름줄 위로 올려 1열로 안전하게 */
+        @media (max-width: 480px){
+        .script-grid{ grid-template-columns: 1fr; }
+        .line .name{ text-align:left; margin-top:8px; }
+        }
+        </style>
+
+      <div class="script-grid">
+      <!-- 지문 예시 -->
+      <div class="narration">
+      주민이 100명도 채 되지 않는 작은 시골 마을, 리틀 레보(Little Rebow).
+      이곳에서 태어난 헤일리는 3년 전 우즈와 결혼했고, 두 사람은 천재견 띠띠와 함께하는 일상을 SNS에 올리며 인기를 얻었다.
+      최근에는 헤일리를 모델로 기용하는 회사까지 생겼다. 높아진 인기에 헤일리-우즈 부부는 기회를 잡기 위해 도시로 이사하기로 했다.
+      </div>
+
+      <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+      <div class="narration">어느 한 술집.</div>
+
+      <!-- 대사 라인들: 이름(왼쪽 고정) / 대사(오른쪽 동일 시작점) -->
+      <div class="line name speaker-mark">마크</div>
+      <div class="line said">
+      우즈 그 녀석한테 참 서운하네요. 누구 덕에 사진으로 먹고사는지 잊은 것 같아요.
+      8년 전엔 실력도 별로였는데 제가 다 가르쳐줬더니, 유명해지자마자 바로 떠나네요.
+      </div>
+
+      <div class="line name speaker-jason">제이슨</div>
+      <div class="line said">
+      우즈가 별 볼 일 없다고요? 그런데 왜 나를 떠난 거야! 헤일리…… 오, 나의 헤일리……
+      내 마음에는 아직 그녀가 있다고요. 멀리서 보는 것만으로도 괜찮았는데…… 도시로 가면 나는 어떡하라고……
+      </div>
+
+      <div class="line name speaker-tom">톰</div>
+      <div class="line said">제이슨, 평소엔 멀쩡하면서 술만 마시면 왜 개가 되는 거야.</div>
+
+      <div class="line name speaker-lucas">루카스</div>
+      <div class="line said">
+      개를 제이슨 씨랑 비교하진 말아주세요. 우리 애들은 귀엽다고요.
+      무튼, 헤일리가 떠나면 띠띠도 함께 가겠죠. 많이 보고 싶을 거예요.
+      </div>
+
+      <div class="line name speaker-jason">제이슨</div>
+      <div class="line said">띠띠…… 오, 나의 띠띠도 보고 싶어…… 그래!!! 헤일리 집에 찾아가서 띠띠라도 봐야겠어!</div>
+
+      <div class="line name speaker-leo">레오</div>
+      <div class="line said">
+      집 이야기 나온 김에 말인데요. 헤일리 씨네 집은 떠돌이 동물들을 위한 쉼터로 개조한다고 하더군요.
+      위치가 좋아서 저한테 팔아주면 좋겠는데…… 톰 씨, 중개 좀 도와주시죠.
+      </div>
+
+      <div class="line name speaker-tom">톰</div>
+      <div class="line said">
+       헤일리가 고집이 세서 제 말은 잘 안 듣습니다. 안 그래도 집을 부수고 새로 짓는다고 해서
+      ‘굳이 그래야 하냐’고 말다툼까지 했고요. 부모님과 함께한 추억이 있는 집인데……
+      </div>
+
+      <div class="line name speaker-leo">레오</div>
+      <div class="line said">
+      집까지 허문다니…… 그 땅을 구매할 수만 있다면 가치가 더 높겠군요.
+      혹시 부부는 언제 떠납니까? 우즈 씨한테 의뢰를 하나 더 맡기고 싶어서요.
+      </div>
+
+      <div class="line name speaker-mark">마크</div>
+      <div class="line said">
+      2주 뒤랍니다. 도시에 먼저 가서 건설 업자를 알아보고, 다시 몇 번 내려와서 쉼터 공사를 진행한다더군요.
+      우즈는 바쁠 텐데……. 그 의뢰는 여유로운 저한테 맡기시는 건 어떻습니까?
+      </div>
+
+      <div class="line name speaker-leo">레오</div>
+      <div class="line said">흠…… 아, 참! 1주 뒤 제 집에서 주민 모두를 초대해 파티를 열겠습니다. 그날 다시 얘기하죠.</div>
+
+      <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+      <div class="narration">1주 뒤. 레오의 집 앞. 파티 중.</div>
+
+      <div class="line name speaker-ttiti">띠띠</div>
+      <div class="line said">왈! 왈! 왈!</div>
+
+      <div class="line name speaker-people">주민1</div>
+      <div class="line said">띠띠? 너 얼굴에 피가……? 무슨 일이야!?</div>
+
+      <div class="narration">띠띠는 주민들을 헤일리의 집 쪽으로 이끄듯 달려갔다.</div>
+
+      <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+      <div class="narration">
+      헤일리의 집. 집안은 가구가 엉망이었고, 유리 조각이 여기저기 흩어져 있었다.
+      거실 한가운데에는 피를 흘린 채 쓰러진 헤일리와 우즈가 있었다.
+      </div>
+
+      <div class="line name speaker-people">주민2</div>
+      <div class="line said">강도가 든 것 같습니다. 두 사람을 빨리 병원에 보내야 해요!</div>
+
+      <div class="narration">잠시 후, 경찰이 도착하여 현장을 살핀 뒤 입을 열었다.</div>
+
+      <div class="line name speaker-police">경찰</div>
+      <div class="line said">
+      오늘 마을을 나간 사람은 없고, 들어온 사람은 우즈 씨뿐이었습니다. 현재 마을에는 외부인이 없습니다.
+      즉, 강도는 마을 주민 중 한 명입니다.
+      </div>
+
+      <div class="line name speaker-people">주민3</div>
+      <div class="line said">헤일리는 15분 전까지 라이브 방송을 했어요. 그 시간에 파티장에서 자리를 비웠던 사람들이 수상합니다.</div>
+
+      <div class="narration">
+      경찰은 CCTV와 주민 증언을 토대로 제이슨, 톰, 마크, 레오, 루카스를 용의자로 지목했다.
+      그리고 조사 중, 헤일리의 사망 소식이 전해졌다. 증거 인멸이 우려되어, 5명은 48시간 동안 경찰서에서 조사를 받게 되었다.
+      </div>
+      </div>
+      </section>
+      <!-- ↑↑↑ 1차 대본 넣기 ↑↑↑ -->
 
           <p><span class="yellow">「1차 대본 읽기」가 끝났다면 「기본 설정서 확인」을 진행하세요.</span></p>
         </div>
@@ -82,52 +327,35 @@
         <div class="acc-body">
           【우즈】와 【띠띠】는 마이크를 음소거한 상태에서 <span class="yellow">【10분】</span> 동안 「기본 설정서:우즈 Story」를 숙지해 주세요.
 
-          <p><span class="white"><strong>우즈의 이야기</strong></span></p>
-          <br>
-
-          <p><span class="white"><strong>공통 정보</strong></span></p>
-          <br>
-
-          <p><span class="white"><strong>우즈의 목표</strong></span></p>
-          <br>
-
-          <p><span class="white"><strong>행동 지침</strong></span></p>
-          <br>
+          <p><span class="white"><strong>우즈의 이야기</strong></span></p><br>
+          <p><span class="white"><strong>공통 정보</strong></span></p><br>
+          <p><span class="white"><strong>우즈의 목표</strong></span></p><br>
+          <p><span class="white"><strong>행동 지침</strong></span></p><br>
 
           <details class="acc">
-          <summary><span class="label"><span class="white">[참고]캐릭터 설명</span></span></summary>
+            <summary><span class="label"><span class="white">[참고]캐릭터 설명</span></span></summary>
+            <strong><span class="white">헤일리 (28세/여성): 살해당한 피해자</span></strong>
+            <p>우즈의 아내. 최근 떠오르는 모델. 띠띠를 14년간 키워왔으며, 3년 전 우즈와 결혼한 인물.</p> 
+            <strong><span class="white">우즈 (31세/남성)</span></strong>
+            <p>헤일리의 남편. 실력 있는 사진작가. 5년 연애 끝에 헤일리와 결혼했고, 띠띠와 함께 산 지 3년째인 인물.</p>
+            <strong><span class="white">띠띠 (14세/수컷)</span></strong>
+            <p>골든 리트리버. 천재견 출신의 노견. 태어나자마자 헤일리에게 입양된 골든 리트리버.</p>
+            <strong><span class="white">제이슨 (28세/남성)</span></strong>
+            <p>헤일리의 고교 동창. 성격 좋은 프리랜서. 헤일리가 우즈와 사귀기 전 마지막으로 연애한 인물.</p>
+            <strong><span class="white">톰 (31세/남성)</span></strong>
+            <p>헤일리의 친오빠. 까칠한 외과의사. 시골 마을 인근 소규모 병원에서 근무하는 인물.</p>
+            <strong><span class="white">마크 (33세/남성)</span></strong>
+            <p>우즈의 직장 동료. 평범한 사진작가. 우즈의 대학 선배로, 8년 전 우즈를 스카우트한 인물.</p>
+            <strong><span class="white">레오 (35세/남성)</span></strong>
+            <p>우즈의 고객. 야심 찬 부동산 업자. 헤일리와 우즈가 사는 마을에 최근 이사 온 인물.</p>
+            <strong><span class="white">루카스 (37세/남성)</span></strong>
+            <p>띠띠의 주치의. 친절한 수의사. 띠띠가 입양된 순간부터 건강을 돌봐온 인물.</p>
+            <div class="acc-body"></div>
+          </details>
 
-          <strong><span class="white">헤일리 (28세/여성): 살해당한 피해자</span></strong>
-          <p>우즈의 아내. 최근 떠오르는 모델. 띠띠를 14년간 키워왔으며, 3년 전 우즈와 결혼한 인물.</p> 
-    
-          <strong><span class="white">우즈 (31세/남성)</span></strong>
-          <p>헤일리의 남편. 실력 있는 사진작가. 5년 연애 끝에 헤일리와 결혼했고, 띠띠와 함께 산 지 3년째인 인물.</p>
-
-          <strong><span class="white">띠띠 (14세/수컷)</span></strong>
-          <p>골든 리트리버. 천재견 출신의 노견. 태어나자마자 헤일리에게 입양된 골든 리트리버.</p>
-
-          <strong><span class="white">제이슨 (28세/남성)</span></strong>
-          <p>헤일리의 고교 동창. 성격 좋은 프리랜서. 헤일리가 우즈와 사귀기 전 마지막으로 연애한 인물.</p>
-    
-          <strong><span class="white">톰 (31세/남성)</span></strong>
-          <p>헤일리의 친오빠. 까칠한 외과의사. 시골 마을 인근 소규모 병원에서 근무하는 인물.</p>
-    
-          <strong><span class="white">마크 (33세/남성)</span></strong>
-          <p>우즈의 직장 동료. 평범한 사진작가. 우즈의 대학 선배로, 8년 전 우즈를 스카우트한 인물.</p>
-    
-          <strong><span class="white">레오 (35세/남성)</span></strong>
-          <p>우즈의 고객. 야심 찬 부동산 업자. 헤일리와 우즈가 사는 마을에 최근 이사 온 인물.</p>
-    
-          <strong><span class="white">루카스 (37세/남성)</span></strong>
-          <p>띠띠의 주치의. 친절한 수의사. 띠띠가 입양된 순간부터 건강을 돌봐온 인물.</p>
-    
-          <div class="acc-body">
-          
-          </div>
-         </details>
-         <br>
-         <p><span class="yellow">「기본 설정서 확인」이 끝났다면 「2차 대본 읽기」를 진행하세요.</span></p>
-      </div>
+          <br>
+          <p><span class="yellow">「기본 설정서 확인」이 끝났다면 「2차 대본 읽기」를 진행하세요.</span></p>
+        </div>
       </details>
 
       <details class="acc">
@@ -135,27 +363,19 @@
         <div class="acc-body">
           【우즈】와 【띠띠】는 마이크를 켜주세요.<br>
           준비되었다면 「2차 대본 읽기」를 진행한 후, 「조사 규칙」을 확인해주세요.<br>
-          자신이 담당하는 캐릭터는 해당 플레이어가 읽습니다. 【마크】, 【톰】, 【루카스】, 【경찰】은 【우즈】 담당 플레이어가, 【제이슨】, 【레오】, 【마을 주민】, 【지문】은 【띠띠】 담당 플레이어가 읽어 주세요.<br>
+          자신이 담당하는 캐릭터는 해당 플레이어가 읽습니다. <span class="yellow">【마크】, 【레오】, 【루카스】, 【경찰】은 【우즈】 담당 플레이어</span>가, 【제이슨】, 【톰】, 【마을 주민】, 【지문】은 【띠띠】 담당 플레이어가 읽어 주세요.<br>
 
-          <p>
-            <span class="yellow"><strong>조사 규칙</strong></span>
-            <br>
-            조사 및 논의는 【30분】입니다. 조사를 하면서 논의를 진행합니다.
-          </p>
-            <p>
-              【우즈】는<br>
-              【띠띠】는
-            </p>
+          <p><span class="yellow"><strong>조사 규칙</strong></span><br>
+            조사 및 논의는 【30분】입니다. 조사를 하면서 논의를 진행합니다.</p>
+          <p>【우즈】는<br>【띠띠】는</p>
 
-            <p><span class="white">조사 방법</span><br>
-              1. 각자 [어디/누구]를 조사할지 말합니다.<br>
-              2. 해당 [장소/인물]를/을 1번 조사합니다.<br>
-              3. 조사한 내용에 대해 [논의]합니다.<br>
-              4. 다음 [조사]를 시작합니다. <br>
-          </p>
+          <p><span class="white">조사 방법</span><br>
+            1. 각자 [어디/누구]를 조사할지 말합니다.<br>
+            2. 해당 [장소/인물]를/을 1번 조사합니다.<br>
+            3. 조사한 내용에 대해 [논의]합니다.<br>
+            4. 다음 [조사]를 시작합니다.</p>
 
           <p>조사 중 [조건]을 충족한다면 <span class="yellow">「추가 조사」</span>가 가능합니다. </p>
-
           <p><span class="yellow">「2차 대본 읽기」와 「조사 규칙」 확인이 끝났다면 「1차 조사 및 논의」를 진행하세요.</span></p>
         </div>
       </details>
@@ -164,7 +384,6 @@
         <summary><span class="label">1차 조사 및 논의</span></summary>
         <div class="acc-body">
           <span class="yellow">【30분】</span> 동안 각자의 이야기와 조사 내용을 토대로 자유롭게 이야기를 나눠주세요.
-
           <p><span class="yellow">「1차 조사 및 논의」가 끝났다면 「추가 자료 확인」을 진행하세요.</span></p>
         </div>
       </details>
@@ -173,7 +392,6 @@
         <summary><span class="label">추가 자료 확인</span></summary>
         <div class="acc-body">
           【우즈】와 【띠띠】는 마이크를 음소거한 상태에서 <span class="yellow">【10분】</span> 동안 「추가 정보:우즈 Story+(서사+)」를 숙지해 주세요.
-
           <p><span class="yellow">「추가 자료 확인」이 끝났다면 「2차 조사 및 논의」를 진행하세요.</span></p>
         </div>
       </details>
@@ -182,7 +400,6 @@
         <summary><span class="label">2차 조사 및 논의</span></summary>
         <div class="acc-body">
           <span class="yellow">【30분】</span> 동안 각자의 이야기와 조사 내용을 토대로 자유롭게 이야기를 나눠주세요.
-
           <p><span class="yellow">「2차 조사 및 논의」가 끝났다면 「투표 및 엔딩 확인」을 진행하세요.</span></p>
         </div>
       </details>
@@ -192,14 +409,13 @@
         <div class="acc-body">
           이번 사건의 범인이라고 생각하는 인물을 합의하여 1명 선택해 주세요. 용의자는 <span class="white">【우즈】, 【띠띠】, 【제이슨】, 【톰】, 【마크】, 【레오】, 【루카스】</span>입니다.<br>
           동기도 지금 단계에서 합의하여 결정짓습니다.<br>
-
           <p><span class="yellow">「범인 투표」에 대한 결정이 끝났다면 [다음]을 눌러주세요.</span></p>
         </div>
       </details>
 
       <hr class="divider" />
 
-      <!-- 내비게이션: 왼쪽=이전, 오른쪽=다음 -->
+      <!-- 내비게이션 -->
       <div class="nav-buttons">
         <a class="nav-btn prev" href="page3.html">이전(캐릭터 설명)</a>
         <a class="nav-btn" href="vote.html">다음(투표·엔딩)</a>
@@ -207,9 +423,7 @@
     </div>
 
     <hr class="custom-hr" />
-    <section>
-      <p class="made">© Copyright 2025. 보또 All rights reserved.</p>
-    </section>
+    <section><p class="made">© Copyright 2025. 보또 All rights reserved.</p></section>
   </div>
 </main>
 
