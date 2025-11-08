@@ -177,12 +177,6 @@ body {
   .card { padding: 28px 20px; }
 }
 
-/* 강조 색상 (노란빛 포인트) */
-.yellow {
-  color: #ffd86b !important; /* 부드러운 노랑 */
-  font-weight: 800;
-}
-
 .nav-buttons {
   display: flex;
   gap: 12px;
@@ -239,3 +233,29 @@ body {
   text-decoration: none;    /* 밑줄 제거 */
 }
 
+/* 내부 패널(박스 안의 박스) */
+.panel {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.subpanel {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* 인라인을 눌러버리는 핫픽스 */
+.card .nav-buttons .nav-btn:not(.prev) {
+  background: linear-gradient(90deg, #6ea8fe, #9ad0ff) !important;
+  color: #0c0e14 !important;
+  border: 0 !important;
+}
+.card .nav-buttons .nav-btn:not(.prev):hover {
+  background: linear-gradient(90deg, #82b8ff, #b3e0ff) !important;
+  box-shadow: 0 3px 10px rgba(110,168,254,0.45) !important;
+}
