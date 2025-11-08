@@ -28,10 +28,10 @@
     }
     .text:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(110,168,254,0.25); }
 
-    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
-    .full { grid-column: 1 / -1; }
+    .actions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
+    .full { width: 100%; }
 
-    /* 결과 카드 */
+    /* 결과 카드 공통 */
     .result {
       margin-top: 22px; padding: 16px 14px;
       border-radius: 14px; background: rgba(255,255,255,0.05);
@@ -57,48 +57,15 @@
 
       <form id="vote-form" autocomplete="off">
         <ul class="choice-list">
-          <li>
-            <label class="choice">
-              <input type="radio" name="suspect" value="우즈" required />
-              <span>우즈</span>
-            </label>
-          </li>
-          <li>
-            <label class="choice">
-              <input type="radio" name="suspect" value="띠띠" />
-              <span>띠띠</span>
-            </label>
-          </li>
-          <li>
-            <label class="choice">
-              <input type="radio" name="suspect" value="제이슨" />
-              <span>제이슨</span>
-            </label>
-          </li>
-          <li>
-            <label class="choice">
-              <input type="radio" name="suspect" value="톰" />
-              <span>톰</span>
-            </label>
-          </li>
-          <li>
-            <label class="choice">
-              <input type="radio" name="suspect" value="마크" />
-              <span>마크</span>
-            </label>
-          </li>
-          <li>
-            <label class="choice">
-              <input type="radio" name="suspect" value="레오" />
-              <span>레오</span>
-            </label>
-          </li>
-          <li>
-            <label class="choice">
-              <input type="radio" name="suspect" value="루카스" />
-              <span>루카스</span>
-            </label>
-          </li>
+          <li><label class="choice"><input type="radio" name="suspect" value="우즈" required /><span>우즈</span></label></li>
+        </ul>
+        <ul class="choice-list">
+          <li><label class="choice"><input type="radio" name="suspect" value="띠띠" /><span>띠띠</span></label></li>
+          <li><label class="choice"><input type="radio" name="suspect" value="제이슨" /><span>제이슨</span></label></li>
+          <li><label class="choice"><input type="radio" name="suspect" value="톰" /><span>톰</span></label></li>
+          <li><label class="choice"><input type="radio" name="suspect" value="마크" /><span>마크</span></label></li>
+          <li><label class="choice"><input type="radio" name="suspect" value="레오" /><span>레오</span></label></li>
+          <li><label class="choice"><input type="radio" name="suspect" value="루카스" /><span>루카스</span></label></li>
         </ul>
 
         <div class="field">
@@ -108,16 +75,30 @@
         </div>
 
         <div class="actions">
+          <!-- 답안 제출은 파란 그라데이션 -->
           <button type="submit" class="nav-btn full" id="submit">답안 제출</button>
-          <button type="button" class="nav-btn prev full" id="lastWalk">마지막 산책</button>
         </div>
       </form>
 
-      <div id="result" class="result" hidden>
+      <!-- ✅ 엔딩 박스: 버튼(마지막 산책) 위에 위치 -->
+      <div id="result-ending" class="result" hidden>
         <h3 class="yellow">엔딩</h3>
         <p id="ending-text"></p>
         <hr class="divider" />
         <p id="ending-note" class="hint"></p>
+      </div>
+
+      <!-- ✅ 마지막 산책(에필로그 버튼): 파란 그라데이션으로 변경 -->
+      <div class="actions">
+        <button type="button" class="nav-btn full" id="lastWalk">마지막 산책</button>
+      </div>
+
+      <!-- ✅ 에필로그/후일담 박스: “마지막 산책” 버튼 아래에 따로 표시 -->
+      <div id="result-epilogue" class="result" hidden>
+        <h3 class="yellow">에필로그</h3>
+        <p id="epilogue-text"></p>
+        <hr class="divider" />
+        <p id="epilogue-note" class="hint"></p>
       </div>
 
       <div class="bottom-nav">
@@ -137,12 +118,6 @@
   import { guard, logout } from "./gate.js";
   guard();
 
-  // 로그아웃
-  document.querySelector('#logout')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    logout();
-  });
-
   // 이전 버튼들
   document.querySelector('#prevWoods')?.addEventListener('click', () => {
     location.href = "woods.html";
@@ -151,7 +126,7 @@
     location.href = "ddiddi.html";
   });
 
-  // 엔딩 텍스트 템플릿 (필요하면 자유롭게 수정)
+  // 엔딩 텍스트 템플릿 (원하는 대사로 바꿔도 됨)
   const ENDINGS = {
     "우즈": "당신의 선택은 ‘우즈’. ~~.",
     "띠띠": "당신의 선택은 ‘띠띠’. ~~.",
@@ -163,16 +138,20 @@
   };
 
   const form = document.querySelector('#vote-form');
-  const resultBox = document.querySelector('#result');
-  const endingText = document.querySelector('#ending-text');
-  const endingNote = document.querySelector('#ending-note');
+  const endingBox   = document.querySelector('#result-ending');
+  const endingText  = document.querySelector('#ending-text');
+  const endingNote  = document.querySelector('#ending-note');
 
+  const epiBox   = document.querySelector('#result-epilogue');
+  const epiText  = document.querySelector('#epilogue-text');
+  const epiNote  = document.querySelector('#epilogue-note');
+
+  // 답안 제출 → 엔딩 박스만 보여주고, 에필로그 박스는 닫아둠
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(form);
     const suspect = data.get('suspect');
     const motive = (document.querySelector('#motive')?.value || '').trim();
-
     if (!suspect) return;
 
     const base = ENDINGS[suspect] || "선택한 인물에 대한 엔딩이 준비되어 있습니다.";
@@ -180,11 +159,14 @@
 
     endingText.textContent = base + motiveLine;
     endingNote.textContent = "※ 결과 문구는 연출용 예시입니다. 실제 정답/엔딩 로직은 자유롭게 수정하세요.";
-    resultBox.hidden = false;
-    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    endingBox.hidden = false;
+
+    // 에필로그는 감춰두고 스크롤은 엔딩으로
+    epiBox.hidden = true;
+    endingBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  // 마지막 산책
+  // 마지막 산책 → 에필로그 박스만 보여주고, 엔딩은 그대로
   document.querySelector('#lastWalk')?.addEventListener('click', () => {
     const epilogue = [
       "밤공기는 차분했고, 발자국 소리는 짧게 이어졌다.",
@@ -192,10 +174,10 @@
       "마지막으로 남은 길. 돌아갈 수 없는 대화의 끝에서, 누군가는 진실을 선택해야 했다."
     ].join(" ");
 
-    endingText.textContent = epilogue;
-    endingNote.textContent = "‘마지막 산책’은 후일담/에필로그 연출 영역입니다. 필요하면 별도 페이지로 분리하세요.";
-    resultBox.hidden = false;
-    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    epiText.textContent = epilogue;
+    epiNote.textContent = "‘마지막 산책’은 후일담/에필로그 연출 영역입니다. 필요하면 별도 페이지로 분리하세요.";
+    epiBox.hidden = false;
+    epiBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 </script>
 </body>
