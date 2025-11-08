@@ -182,19 +182,23 @@ body {
 
 .nav-btn:active { transform: translateY(1px); }
 
-/* 이전 버튼 = 흰색 배경 버튼 */
+/* 이전 버튼: 은은한 실버 그라데이션 + 부드러운 테두리 */
 .nav-btn.prev {
-  background: #ffffff;
+  background: linear-gradient(135deg, #ffffff 0%, #e8e8ef 100%);
   color: #0c0e14;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.65);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  transition: transform .15s, box-shadow .15s;
 }
 
 .nav-btn.prev:hover {
-  background: #eaeaea;
+  background: linear-gradient(135deg, #ffffff 0%, #f7f7ff 100%);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.28);
 }
 
 .nav-btn.prev:active {
   transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.22);
 }
 
 /* 노란 강조 */
