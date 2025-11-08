@@ -128,9 +128,31 @@ body {
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.15s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
 }
-.next-btn:active { transform: translateY(1px); }
+.next-btn:hover {
+  background: linear-gradient(90deg, #82b8ff, #b3e0ff); /* 더 밝은 그라데이션 */
+  box-shadow: 0 3px 10px rgba(110,168,254,0.45);      /* 은은한 발광 느낌 */
+}
+
+.next-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(110,168,254,0.25);
+}
+
+.nav-btn:not(.prev) {
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.nav-btn:not(.prev):hover {
+  background: linear-gradient(90deg, #82b8ff, #b3e0ff);
+  box-shadow: 0 3px 10px rgba(110,168,254,0.45);
+}
+
+.nav-btn:not(.prev):active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(110,168,254,0.25);
+}
 
 /* ===== Footer ===== */
 .custom-hr {
@@ -182,18 +204,18 @@ body {
 
 .nav-btn:active { transform: translateY(1px); }
 
-/* 이전 버튼: 은은한 실버 그라데이션 + 부드러운 테두리 */
+/* 이전 버튼: 은은한 실버 펄 + 유리광택 */
 .nav-btn.prev {
-  background: linear-gradient(135deg, #ffffff 0%, #e8e8ef 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #e9e9f2 100%);
   color: #0c0e14;
-  border: 1px solid rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.55);
   box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-  transition: transform .15s, box-shadow .15s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 
 .nav-btn.prev:hover {
-  background: linear-gradient(135deg, #ffffff 0%, #f7f7ff 100%);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.28);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8ff 100%);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.26);
 }
 
 .nav-btn.prev:active {
