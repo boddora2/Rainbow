@@ -7,7 +7,6 @@
   <title>너와 나의 산책 — 투표</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* 페이지 전용 살짝 보완 */
     .question { font-weight: 700; margin: 0 0 12px; }
     .choice-list { display: grid; gap: 10px; margin: 12px 0 18px; padding: 0; list-style: none; }
     .choice {
@@ -18,8 +17,10 @@
       cursor: pointer;
     }
     .choice input { accent-color: #6ea8fe; transform: scale(1.05); }
+
     .field { margin: 16px 0 8px; }
     .hint { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
+
     .text {
       width: 100%; height: 44px; border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.15);
@@ -31,16 +32,15 @@
     .actions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
     .full { width: 100%; }
 
-    /* 결과 카드 공통 */
     .result {
       margin-top: 22px; padding: 16px 14px;
       border-radius: 14px; background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.12);
     }
-    .result h3 { margin: 0 0 8px; }
-    .result p { margin: 6px 0; }
 
-    /* 하단 내비 (이전 2개) */
+    .ending-actions { margin-top: 12px; display: flex; justify-content: flex-end; }
+    #lastWalk { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); }
+
     .bottom-nav { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   </style>
 </head>
@@ -55,11 +55,10 @@
     <div class="section">
       <p class="question">다음 중 <strong>헤일리를 살해한 범인</strong>을 선택해 주세요.</p>
 
+      <!-- ✅ form 하나만 유지 -->
       <form id="vote-form" autocomplete="off">
         <ul class="choice-list">
           <li><label class="choice"><input type="radio" name="suspect" value="우즈" required /><span>우즈</span></label></li>
-        </ul>
-        <ul class="choice-list">
           <li><label class="choice"><input type="radio" name="suspect" value="띠띠" /><span>띠띠</span></label></li>
           <li><label class="choice"><input type="radio" name="suspect" value="제이슨" /><span>제이슨</span></label></li>
           <li><label class="choice"><input type="radio" name="suspect" value="톰" /><span>톰</span></label></li>
@@ -69,31 +68,28 @@
         </ul>
 
         <div class="field">
-          <label for="motive" class="label">범인이 헤일리를 살해한 동기는 무엇인가요?</label>
-          <input id="motive" class="text" type="text" placeholder="예) 복수" />
-          <p class="hint">동기: <code>복수</code> 같이 한 단어로 적어 주세요. (예: ‘복수’하기 위해서)</p>
+          <label for="motive" class="label">범인의 동기</label>
+          <input id="motive" class="text" type="text" placeholder="예: 헤일리에게 복수" />
+          <p class="hint">동기: “~~~~하기 위해서”에서 <strong>~~~~</strong>부분을 적어주세요.</p>
         </div>
 
         <div class="actions">
-          <!-- 답안 제출은 파란 그라데이션 -->
           <button type="submit" class="nav-btn full" id="submit">답안 제출</button>
         </div>
       </form>
 
-      <!-- ✅ 엔딩 박스: 버튼(마지막 산책) 위에 위치 -->
+      <!-- ✅ 엔딩 박스 (마지막 산책 버튼 포함) -->
       <div id="result-ending" class="result" hidden>
         <h3 class="yellow">엔딩</h3>
         <p id="ending-text"></p>
-        <hr class="divider" />
         <p id="ending-note" class="hint"></p>
+
+        <div class="ending-actions">
+          <button class="nav-btn" id="lastWalk">마지막 산책</button>
+        </div>
       </div>
 
-      <!-- ✅ 마지막 산책(에필로그 버튼): 파란 그라데이션으로 변경 -->
-      <div class="actions">
-        <button type="button" class="nav-btn full" id="lastWalk">마지막 산책</button>
-      </div>
-
-      <!-- ✅ 에필로그/후일담 박스: “마지막 산책” 버튼 아래에 따로 표시 -->
+      <!-- ✅ 에필로그 박스 -->
       <div id="result-epilogue" class="result" hidden>
         <h3 class="yellow">에필로그</h3>
         <p id="epilogue-text"></p>
@@ -108,9 +104,7 @@
     </div>
 
     <hr class="custom-hr" />
-    <section>
-      <p class="made">© Copyright 2025. 보또 All rights reserved.</p>
-    </section>
+    <section><p class="made">© Copyright 2025. 보또 All rights reserved.</p></section>
   </div>
 </main>
 
@@ -118,15 +112,9 @@
   import { guard, logout } from "./gate.js";
   guard();
 
-  // 이전 버튼들
-  document.querySelector('#prevWoods')?.addEventListener('click', () => {
-    location.href = "woods.html";
-  });
-  document.querySelector('#prevDdiddi')?.addEventListener('click', () => {
-    location.href = "ttiti.html";
-  });
+  document.querySelector('#prevWoods').onclick = () => location.href = "woods.html";
+  document.querySelector('#prevDdiddi').onclick = () => location.href = "ttiti.html";
 
-  // 엔딩 텍스트 템플릿 (원하는 대사로 바꿔도 됨)
   const ENDINGS = {
     "우즈": "당신의 선택은 ‘우즈’. ~~.",
     "띠띠": "당신의 선택은 ‘띠띠’. ~~.",
@@ -138,46 +126,38 @@
   };
 
   const form = document.querySelector('#vote-form');
-  const endingBox   = document.querySelector('#result-ending');
-  const endingText  = document.querySelector('#ending-text');
-  const endingNote  = document.querySelector('#ending-note');
+  const endingBox = document.querySelector('#result-ending');
+  const endingText = document.querySelector('#ending-text');
+  const endingNote = document.querySelector('#ending-note');
 
-  const epiBox   = document.querySelector('#result-epilogue');
-  const epiText  = document.querySelector('#epilogue-text');
-  const epiNote  = document.querySelector('#epilogue-note');
+  const epiBox = document.querySelector('#result-epilogue');
+  const epiText = document.querySelector('#epilogue-text');
+  const epiNote = document.querySelector('#epilogue-note');
 
-  // 답안 제출 → 엔딩 박스만 보여주고, 에필로그 박스는 닫아둠
-  form?.addEventListener('submit', (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(form);
     const suspect = data.get('suspect');
-    const motive = (document.querySelector('#motive')?.value || '').trim();
-    if (!suspect) return;
+    const motive = (document.querySelector('#motive').value || '').trim();
 
-    const base = ENDINGS[suspect] || "선택한 인물에 대한 엔딩이 준비되어 있습니다.";
-    const motiveLine = motive ? `\n\n동기: 「${motive}」하기 위해서.` : "동기는 비공개로 처리되었습니다.";
+    const base = ENDINGS[suspect];
+    const motiveLine = motive ? `\n\n동기: 「${motive}」하기 위해서.` : "";
 
     endingText.textContent = base + motiveLine;
-    endingNote.textContent = "※ 결과 문구는 연출용 예시입니다. 실제 정답/엔딩 로직은 자유롭게 수정하세요.";
+    endingNote.textContent = "※ 이 엔딩은 연출용 예시입니다.";
     endingBox.hidden = false;
-
-    // 에필로그는 감춰두고 스크롤은 엔딩으로
     epiBox.hidden = true;
-    endingBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    endingBox.scrollIntoView({ behavior: 'smooth' });
   });
 
-  // 마지막 산책 → 에필로그 박스만 보여주고, 엔딩은 그대로
-  document.querySelector('#lastWalk')?.addEventListener('click', () => {
-    const epilogue = [
-      "밤공기는 차분했고, 발자국 소리는 짧게 이어졌다.",
-      "우리는 아무 말도 하지 않았지만, 서로가 바라본 그림자는 같은 방향을 가리켰다.",
-      "마지막으로 남은 길. 돌아갈 수 없는 대화의 끝에서, 누군가는 진실을 선택해야 했다."
-    ].join(" ");
+  document.querySelector('#lastWalk').addEventListener('click', () => {
+    epiText.textContent =
+      "밤공기는 차분했고, 발자국 소리는 짧게 이어졌다. 우리는 아무 말도 하지 않았지만, 서로가 바라본 그림자는 같은 방향을 가리켰다.";
+    epiNote.textContent = "후일담은 선택적으로 변경 가능합니다.";
 
-    epiText.textContent = epilogue;
-    epiNote.textContent = "‘마지막 산책’은 후일담/에필로그 연출 영역입니다. 필요하면 별도 페이지로 분리하세요.";
     epiBox.hidden = false;
-    epiBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    epiBox.scrollIntoView({ behavior: 'smooth' });
   });
 </script>
 </body>
