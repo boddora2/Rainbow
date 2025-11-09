@@ -186,7 +186,7 @@
 
       <!-- ✅ 에필로그 박스 (사건의 진상 버튼도 포함) -->
       <div id="result-epilogue" class="result" hidden>
-        <h3 class="yellow">에필로그</h3>
+        <h3 class="yellow">에필로그(마지막 산책)</h3>
         <p id="epilogue-text"></p>
         <hr class="divider" />
         <p id="epilogue-note" class="hint"></p>
@@ -206,8 +206,15 @@
         <details class="author-note">
           <summary>작가의 인사</summary>
           <div class="author-note-body" id="author-message">
-            플레이해 주셔서 감사합니다. 이 시리즈는 짧지만 여운이 남도록 설계했어요.
-            여러분의 선택과 해석이 이 이야기를 완성합니다.
+            <p>안녕하세요, 보또입니다.</p>
+            <p>저의 세 번째 작품 [너와 나의 산책]을 플레이해주셔서 감사합니다.</p>
+            <p>최근 2~3인 머더 미스터리에 매력을 느끼며, 가까운 사람과 가볍지만 깊게 즐길 수 있는 이야기를 만들고 싶었습니다. 그래서 조금 특별한 관계인 ‘사람’과 ‘반려견’이 함께 사건을 풀어나가는 구성을 생각하게 되었고, 그 관계가 작품 속에서 자연스럽게 받아들여졌기를 바랍니다.</p>
+            <p>작중 이름은 저희 사무실 식구들의 실제 이름과 별명에서 가져왔습니다. 【우즈】는 【헤일리】라는 친구가 가장 좋아하는 가수의 이름이고, 【띠띠】는 실제로 반려견 ‘앵두’를 키우는 친구의 별명입니다. 골든 리트리버와 잘 어울리는 이름이라 허락을 받고 작품에 사용했습니다.</p>
+            <p>초기 설정부터 이 작품은 즐거웠습니다. 개는 예로부터 영혼을 볼 수 있다고 하죠. 그 말에서 출발해 ‘유령’이지만 스스로 죽음을 모르는 인물(【우즈】)을 곁에 두는 구조를 생각했습니다. 그리고 이 관계가 더 설득력 있게 다가오도록, 【띠띠】는 노견으로 설정했습니다. 그렇게 둘은 서로를 이해하고, 가장 소중한 사람의 죽음에 대해 함께 걸어나가며,  마지막으로 아름다운 이별을 하는 이야기로 완성되었습니다.</p>
+            <p>엔딩 이후의 [마지막 산책] 장면은 특히 오랜 시간 고민했습니다. 홀로 남아 기억을 품고 살아가는 【띠띠】의 삶과, 가족들과 함께 무지개다리를 건너는 【띠띠】의 삶 중 어떤 선택이 더 행복할까를 반려견을 키우는 친구와 함께 이야기했고, 지금의 에필로그를 준비했습니다.</p>
+            <p>하지만 만약 여러분 마음속에 다른 결말이 있다면, 그 결말 그대로 기억해주셔도 좋습니다. 저는 【헤일리】, 【우즈】, 【띠띠】 모두가 행복했으면 합니다. 여러분은 본 이야기 속에서 【우즈】였으며, 【띠띠】였기에 여러분이 행복할 것 같은 결말로 기억해 주세요.</p>
+            <p>플레이해주신 모든 분들께 진심으로 감사드립니다. 더 좋은 작품으로 다시 찾아뵙겠습니다.</p>
+            <p>마지막으로 작은 선물을 준비했습니다.<br> ▼ 각 캐릭터의 플레이 카드를 클릭하여 기념으로 간직해주세요.</p>
           </div>
         </details>
       </div>
@@ -233,14 +240,25 @@
 
   // 엔딩 텍스트 템플릿
   const ENDINGS = {
-    "우즈": "당신의 선택은 ‘우즈’. ~~.",
-    "띠띠": "당신의 선택은 ‘띠띠’. ~~.",
-    "제이슨": "당신의 선택은 ‘제이슨’. ~~.",
-    "톰": "당신의 선택은 ‘톰’. 가족을 ~~.",
-    "마크": "당신의 선택은 ‘마크’. ~~.",
-    "레오": "당신의 선택은 ‘레오’. ~~.",
-    "루카스": "당신의 선택은 ‘루카스’. ~~."
+    "우즈": "우리는 헤일리를 살해한 범인이 【우즈】라고 결론지었다.",
+    "띠띠": "우리는 헤일리를 살해한 범인이 【띠띠】라고 결론지었다.",
+    "제이슨": "우리는 헤일리를 살해한 범인이 【제이슨】이라고 결론지었다.",
+    "톰": "우리는 헤일리를 살해한 범인이 【톰】이라고 결론지었다.",
+    "마크": "우리는 헤일리를 살해한 범인이 【마크】라고 결론지었다.",
+    "레오": "우리는 헤일리를 살해한 범인이 【레오】라고 결론지었다.",
+    "루카스": "우리는 헤일리를 살해한 범인이 【루카스】라고 결론지었다.",
   };
+    // 엔딩 텍스트 템플릿
+    const ENDINGS2 = {
+    "우즈": "그때, 【헤일리】가 우리 앞에 나타났다. 그게 무슨 말이야. 그럴리가 없잖아. 대체 【우즈】가 나를 죽일 이유가 뭐야. 둘이 무엇을 숨기고 있는 거야. 뭔가 오해하고 있는게 분명해. 나를 위해 범인을 찾는다고 했지? 나는 너희가 이런 결론을 내린게 내가 죽은 것 보다 더 속상해. 둘 다 숨김없이 모든 걸 말해줘. 나도 내가 기억하는 걸 말할게. 그는 분명히 띠띠의 상태를 걱정하고, 우리 집에 관심을 가졌던 인물이야. 자 둘도 숨김없이 모든 걸 털어놔. [지시] 여러분에게 추가로 10분의 대화 시간이 주어졌습니다. 이번이 정말 마지막 기회입니다. 헤일리를 살해한 범인을 찾아 다시 투표해주세요.",
+    "띠띠": "여기에 띠띠 2 엔딩 내용을 넣어주세요.",
+    "제이슨": "여기에 제이슨 2 엔딩 내용을 넣어주세요.",
+    "톰": "여기에 톰 2 엔딩 내용을 넣어주세요.",
+    "마크": "여기에 마크 2 엔딩 내용을 넣어주세요.",
+    "레오": "여기에 레오 2 엔딩 내용을 넣어주세요.",
+    "루카스": "여기에 루카스 2 엔딩 내용을 넣어주세요.",
+  };
+
 
   // 노드 캐시
   const form = document.querySelector('#vote-form');
@@ -257,25 +275,42 @@
   const truthText = document.querySelector('#truth-text');
   const truthNote = document.querySelector('#truth-note');
 
-  // 제출 → 엔딩 표시, 나머지는 숨김
   form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const suspect = data.get('suspect');
-    const motive = (document.querySelector('#motive').value || '').trim();
+  e.preventDefault();
+  const data = new FormData(form);
+  const suspect = data.get('suspect');
+  const motive = (document.querySelector('#motive').value || '').trim();
 
-    const base = ENDINGS[suspect] || "선택한 인물에 대한 엔딩이 준비되어 있습니다.";
-    const motiveLine = motive ? `\n\n동기: 「${motive}」하기 위해서.` : "";
+  // ① 범인 이름 표시
+  const headerLine = `범인으로 선택된 사람 : ${suspect} 1`;
 
-    endingText.textContent = base + motiveLine;
-    endingNote.textContent = "※ 결과 문구는 연출용 예시입니다. 실제 정답/엔딩 로직은 자유롭게 수정하세요.";
+  // ② 기존 엔딩
+  const base = ENDINGS[suspect] || "";
+  const baseLine = base;
 
-    endingBox.hidden = false;
-    epiBox.hidden = true;
-    truthBox.hidden = true;
+  // ③ 동기 (사용자가 입력한 그대로, “하기 위해서” 자동 처리 없음)
+  const motiveLine = motive ? `그가 ${motive} 때문에 범행을 계획했다고 판단했다.` : "";
 
-    endingBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  // ④ 두 번째 엔딩
+  const second = ENDINGS2[suspect] || "";
+  const secondLine = second ? `${suspect} 2 엔딩: ${second}` : "";
+
+  // 출력 구성
+  endingText.textContent = [
+    headerLine,
+    baseLine,
+    motiveLine,
+    secondLine
+  ].filter(Boolean).join("\n\n");
+
+  endingNote.textContent = "에필로그(마지막 산책)가 준비되어 있습니다.\n바로 사건의 진상으로 넘어가셔도 좋습니다.";
+
+  endingBox.hidden = false;
+  epiBox.hidden = true;
+  truthBox.hidden = true;
+
+  endingBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
   // 마지막 산책 → 에필로그만 표시
   document.querySelector('#lastWalk')?.addEventListener('click', () => {
@@ -286,7 +321,7 @@
     ].join(" ");
 
     epiText.textContent = epilogue;
-    epiNote.textContent = "‘마지막 산책’은 후일담/에필로그 연출 영역입니다. 필요하면 별도 페이지로 분리하세요.";
+    epiNote.textContent = "사건의 진상을 확인하고 싶은 분은 [사건의 진상]을 눌러주세요";
 
     epiBox.hidden = false;
     truthBox.hidden = true;
@@ -305,7 +340,7 @@
       ].join(" ");
 
       truthText.textContent = reveal;
-      truthNote.textContent = "스포일러 주의! 이 영역은 정답 해설 및 트릭 설명을 포함합니다.";
+      truthNote.textContent = "다시 한 번 플레이 해주셔서 감사합니다.";
 
       truthBox.hidden = false;
       truthBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
