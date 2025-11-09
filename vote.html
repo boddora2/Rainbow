@@ -73,6 +73,31 @@
 
     /* 하단 내비 (이전 2개) */
     .bottom-nav { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* 작가의 인사 토글 화살표 표시 */
+    details.author-note summary {
+    cursor: pointer;
+    list-style: none;
+    padding-right: 18px;
+    position: relative;
+    }
+
+    /* 닫혀 있을 때: ▼ */
+    details.author-note summary::after {
+    content: "▼";
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 13px;
+    opacity: 0.7;
+    transition: transform 0.25s, opacity 0.25s;
+    }
+
+    /* 펼쳐졌을 때: ▲ (회전) */
+    details.author-note[open] summary::after {
+    transform: rotate(-180deg);
+    opacity: 0.9;
+    }
   </style>
 </head>
 <body>
