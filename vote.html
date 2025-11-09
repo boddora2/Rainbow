@@ -7,6 +7,7 @@
   <title>너와 나의 산책 — 투표</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* --- 페이지 전용 보완 --- */
     .question { font-weight: 700; margin: 0 0 12px; }
     .choice-list { display: grid; gap: 10px; margin: 12px 0 18px; padding: 0; list-style: none; }
     .choice {
@@ -32,15 +33,45 @@
     .actions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
     .full { width: 100%; }
 
+    /* 결과 카드 공통 */
     .result {
       margin-top: 22px; padding: 16px 14px;
       border-radius: 14px; background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.12);
     }
+    .result h3 { margin: 0 0 8px; }
+    .result p { margin: 6px 0; }
 
-    .ending-actions { margin-top: 12px; display: flex; justify-content: flex-end; }
-    #lastWalk { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); }
+    /* 엔딩/에필로그 하단 액션 */
+    .ending-actions, .epilogue-actions {
+      margin-top: 12px; display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;
+    }
 
+    /* 버튼 커스텀 - 마지막 산책(아이보리/골드) */
+    #lastWalk {
+      background: linear-gradient(135deg, #e6d18a 0%, #f8efc8 100%);
+      border: none; color: #1a1a1c; font-weight: 600; transition: 0.25s;
+    }
+    #lastWalk:hover { filter: brightness(1.1); transform: translateY(-1.5px); }
+
+    /* 버튼 커스텀 - 사건의 진상(은은한 파랑) */
+    .truth-btn {
+      background: linear-gradient(135deg, #6ea8fe 0%, #a7c4ff 100%);
+      border: none; color: #0f1520; font-weight: 700; transition: 0.25s;
+    }
+    .truth-btn:hover { filter: brightness(1.05); transform: translateY(-1.5px); }
+
+    /* 작가의 인사 토글 */
+    details.author-note {
+      margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.18); padding-top: 10px;
+    }
+    details.author-note summary {
+      cursor: pointer; font-weight: 700; list-style: none; outline: none;
+    }
+    details.author-note[open] summary { opacity: 0.9; }
+    .author-note-body { margin-top: 8px; color: var(--muted); line-height: 1.65; }
+
+    /* 하단 내비 (이전 2개) */
     .bottom-nav { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   </style>
 </head>
@@ -70,7 +101,7 @@
         <div class="field">
           <label for="motive" class="label">범인의 동기</label>
           <input id="motive" class="text" type="text" placeholder="예: 헤일리에게 복수" />
-          <p class="hint">동기: “~~~~하기 위해서”에서 <strong>~~~~</strong>부분을 적어주세요.</p>
+          <p class="hint">동기: “~~~~하기 위해서”에서 <strong>~~~~</strong> 부분만 적어주세요. (예: ‘헤일리에게 복수’)</p>
         </div>
 
         <div class="actions">
@@ -78,7 +109,7 @@
         </div>
       </form>
 
-      <!-- ✅ 엔딩 박스 (마지막 산책 버튼 포함) -->
+      <!-- ✅ 엔딩 박스 (마지막 산책 & 사건의 진상 버튼 포함) -->
       <div id="result-ending" class="result" hidden>
         <h3 class="yellow">엔딩</h3>
         <p id="ending-text"></p>
@@ -86,15 +117,36 @@
 
         <div class="ending-actions">
           <button class="nav-btn" id="lastWalk">마지막 산책</button>
+          <button class="nav-btn truth-btn">사건의 진상</button>
         </div>
       </div>
 
-      <!-- ✅ 에필로그 박스 -->
+      <!-- ✅ 에필로그 박스 (사건의 진상 버튼도 포함) -->
       <div id="result-epilogue" class="result" hidden>
         <h3 class="yellow">에필로그</h3>
         <p id="epilogue-text"></p>
         <hr class="divider" />
         <p id="epilogue-note" class="hint"></p>
+
+        <div class="epilogue-actions">
+          <button class="nav-btn truth-btn">사건의 진상</button>
+        </div>
+      </div>
+
+      <!-- ✅ 사건의 진상 박스 (기본 숨김) -->
+      <div id="result-truth" class="result" hidden>
+        <h3 class="yellow">사건의 진상</h3>
+        <p id="truth-text"></p>
+        <p id="truth-note" class="hint"></p>
+
+        <!-- 작가의 인사 토글 -->
+        <details class="author-note">
+          <summary>작가의 인사</summary>
+          <div class="author-note-body" id="author-message">
+            플레이해 주셔서 감사합니다. 이 시리즈는 짧지만 여운이 남도록 설계했어요.
+            여러분의 선택과 해석이 이 이야기를 완성합니다.
+          </div>
+        </details>
       </div>
 
       <div class="bottom-nav">
@@ -112,52 +164,89 @@
   import { guard, logout } from "./gate.js";
   guard();
 
-  document.querySelector('#prevWoods').onclick = () => location.href = "woods.html";
-  document.querySelector('#prevDdiddi').onclick = () => location.href = "ttiti.html";
+  // 이전 페이지 이동
+  document.querySelector('#prevWoods').onclick = () => (location.href = "woods.html");
+  document.querySelector('#prevDdiddi').onclick = () => (location.href = "ttiti.html");
 
+  // 엔딩 텍스트 템플릿
   const ENDINGS = {
     "우즈": "당신의 선택은 ‘우즈’. ~~.",
     "띠띠": "당신의 선택은 ‘띠띠’. ~~.",
-    "제이슨": "당신의 선택은 ‘제이슨’. ~~",
-    "톰": "당신의 선택은 ‘톰’. 가족을 ~~",
+    "제이슨": "당신의 선택은 ‘제이슨’. ~~.",
+    "톰": "당신의 선택은 ‘톰’. 가족을 ~~.",
     "마크": "당신의 선택은 ‘마크’. ~~.",
-    "레오": "당신의 선택은 ‘레오’. ~~",
+    "레오": "당신의 선택은 ‘레오’. ~~.",
     "루카스": "당신의 선택은 ‘루카스’. ~~."
   };
 
+  // 노드 캐시
   const form = document.querySelector('#vote-form');
-  const endingBox = document.querySelector('#result-ending');
+
+  const endingBox  = document.querySelector('#result-ending');
   const endingText = document.querySelector('#ending-text');
   const endingNote = document.querySelector('#ending-note');
 
-  const epiBox = document.querySelector('#result-epilogue');
+  const epiBox  = document.querySelector('#result-epilogue');
   const epiText = document.querySelector('#epilogue-text');
   const epiNote = document.querySelector('#epilogue-note');
 
+  const truthBox  = document.querySelector('#result-truth');
+  const truthText = document.querySelector('#truth-text');
+  const truthNote = document.querySelector('#truth-note');
+
+  // 제출 → 엔딩 표시, 나머지는 숨김
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(form);
     const suspect = data.get('suspect');
     const motive = (document.querySelector('#motive').value || '').trim();
 
-    const base = ENDINGS[suspect];
+    const base = ENDINGS[suspect] || "선택한 인물에 대한 엔딩이 준비되어 있습니다.";
     const motiveLine = motive ? `\n\n동기: 「${motive}」하기 위해서.` : "";
 
     endingText.textContent = base + motiveLine;
-    endingNote.textContent = "※ 이 엔딩은 연출용 예시입니다.";
+    endingNote.textContent = "※ 결과 문구는 연출용 예시입니다. 실제 정답/엔딩 로직은 자유롭게 수정하세요.";
+
     endingBox.hidden = false;
     epiBox.hidden = true;
+    truthBox.hidden = true;
 
-    endingBox.scrollIntoView({ behavior: 'smooth' });
+    endingBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  document.querySelector('#lastWalk').addEventListener('click', () => {
-    epiText.textContent =
-      "밤공기는 차분했고, 발자국 소리는 짧게 이어졌다. 우리는 아무 말도 하지 않았지만, 서로가 바라본 그림자는 같은 방향을 가리켰다.";
-    epiNote.textContent = "후일담은 선택적으로 변경 가능합니다.";
+  // 마지막 산책 → 에필로그만 표시
+  document.querySelector('#lastWalk')?.addEventListener('click', () => {
+    const epilogue = [
+      "밤공기는 차분했고, 발자국 소리는 짧게 이어졌다.",
+      "우리는 아무 말도 하지 않았지만, 서로가 바라본 그림자는 같은 방향을 가리켰다.",
+      "돌아갈 수 없는 대화의 끝에서, 누군가는 진실을 선택해야 했다."
+    ].join(" ");
+
+    epiText.textContent = epilogue;
+    epiNote.textContent = "‘마지막 산책’은 후일담/에필로그 연출 영역입니다. 필요하면 별도 페이지로 분리하세요.";
 
     epiBox.hidden = false;
-    epiBox.scrollIntoView({ behavior: 'smooth' });
+    truthBox.hidden = true;
+
+    epiBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // 사건의 진상 버튼(엔딩/에필로그 둘 다) → 진상 박스 표시
+  document.querySelectorAll('.truth-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // 여기 내용은 실제 작품 로직에 맞게 교체 가능
+      const reveal = [
+        "※ 여기에는 ‘사건의 핵심 트릭/동선/도구/알리바이 붕괴’를 정리해 넣으세요.",
+        "예시) 범행 시각의 공회전 소음 때문에 비명은 들리지 않았고,",
+        "폴라로이드의 플래시 지연과 병원의 출입기록(자동문 센서)이 결정적 반증이 되었다."
+      ].join(" ");
+
+      truthText.textContent = reveal;
+      truthNote.textContent = "스포일러 주의! 이 영역은 정답 해설 및 트릭 설명을 포함합니다.";
+
+      truthBox.hidden = false;
+      truthBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 </script>
 </body>
