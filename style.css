@@ -259,3 +259,34 @@ body {
   background: linear-gradient(90deg, #82b8ff, #b3e0ff) !important;
   box-shadow: 0 3px 10px rgba(110,168,254,0.45) !important;
 }
+
+.card-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.card-gallery img {
+  width: 260px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.card-gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  .card-gallery {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-gallery img {
+    width: 80%;
+  }
+}
