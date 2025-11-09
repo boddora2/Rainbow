@@ -348,7 +348,7 @@
           <div class="subpanel">
             <strong class="white">오늘의 이야기: 우즈</strong>
             <p>지끈거리는 뒷통수와 욱신거리는 등의 통증에 눈을 떴다. 주변을 둘러보니 여긴 【톰】이 근무하는 '리틀 레보 인근 병원'이었다. 서둘러 【헤일리】를 찾으러 복도로 나갔다. 그때, 복도 한편에서 이야기하던 경찰관들의 목소리가 들려왔다.</p>
-            <p>"상황이 많이 꼬였어. 설마 【제이슨】 아버지가 그 사람일 줄이야."</p>
+            <p>"상황이 많이 꼬였어. 설마 【제이슨】의 아버지가 그분일 줄이야."</p>
             <p>"【제이슨】만인가? 【레오 씨】 쪽도 사업에 타격 날까 봐 덮으려고 난리잖아."</p>
             <p>"【톰】도… 자기 여동생이 죽었는데 처음엔 부검을 거부했다더라. 그래서 초동 보고서가 늦은 거고."</p>
             <p>"임시 구금은 48시간까지인데, 이제 2시간도 안 남았어."</p>
@@ -374,7 +374,7 @@
           </div>
             <br>
           <div class="subpanel">
-            <strong class="white">공통 정보</strong>
+            <strong class="white">공통 정보</strong><br><br>
             <strong><span class="white">세계관</span></strong>
             <p>이곳은 외국의 한 지역으로, 모두 만 나이를 사용한다. 만 6세에 초등학교에 입학하며, 만 14세에 고등학교, 만 18세에 대학교에 입학한다. 남성의 군 복무 의무는 없다. (등장 인물의 나이에 의구심을 가질 필요는 없다.)</p>
             <strong><span class="white">리틀 레보</span></strong>
@@ -431,20 +431,205 @@
         <summary><span class="label">2차 대본 읽기</span></summary>
         <div class="acc-body">
           【우즈】와 【띠띠】는 마이크를 켜주세요.<br>
-          준비되었다면 「2차 대본 읽기」를 진행한 후, 「조사 규칙」을 확인해주세요.<br>
-          자신이 담당하는 캐릭터는 해당 플레이어가 읽습니다. <span class="yellow">【마크】, 【레오】, 【루카스】, 【경찰】은 【우즈】 담당 플레이어</span>가, 【제이슨】, 【톰】, 【마을 주민】, 【지문】은 【띠띠】 담당 플레이어가 읽어 주세요.<br>
+          준비되었다면 「2차 대본 읽기」를 진행한 후, 「조사 규칙」을 확인해주세요. 자신이 담당하는 캐릭터의 대사는 해당 플레이어가 읽습니다. 【지문】은 【띠띠】 담당 플레이어가 읽어 주세요.<br>
 
-          <p><span class="yellow"><strong>조사 규칙</strong></span><br>
-            조사 및 논의는 【30분】입니다. 조사를 하면서 논의를 진행합니다.</p>
-          <p>【우즈】는<br>【띠띠】는</p>
+          <!-- ↓↓↓ 2차 대본 넣기 (단일 박스 + 좌/우 정렬 고정) ↓↓↓ -->
+        <section class="script-box" aria-label="1차 대본">
+          <style>
+          /* 스크립트 박스 전체 */
+          .script-box{
+          margin-top:12px;
+          padding:16px 18px;
+          border:1px solid rgba(255,255,255,0.12);
+          border-radius:12px;
+          background:rgba(255,255,255,0.03);
+          color:var(--muted);
+          }
+          /* 2열 그리드: 왼쪽 이름 칼럼 고정, 오른쪽 대사 가변 */
+          .script-grid{
+          display:grid;
+          grid-template-columns: 110px 1fr; /* ← 이름 폭 고정 (필요시 120~140px로 조절) */
+          column-gap:14px;
+          row-gap:14px;
+          line-height:1.7;
+          font-size:15px;
+          }
+          /* 한 줄(이름+대사) */
+          .line .name{
+          font-weight:800;
+          text-align:right;            /* 이름을 오른쪽 정렬 → 시선이 대사 시작점으로 깔끔하게 */
+          color: rgb(255, 255, 255);
+          white-space:nowrap;
+          }
+          .line .said{
+          color: rgb(255, 255, 255);
+          white-space:pre-wrap;        /* 줄바꿈/띄어쓰기 보존 */
+          word-break:keep-all;
+          padding: 6px 12px;
+          }
+          .narration{
+          grid-column: 1 / -1;
+          font-style: normal;     /* 기울임 제거 */
+          color: rgba(255,255,255,0.88);
+          line-height: 1.78;
+          padding: 0;             /* 여백 제거 */
+          margin: 4px 0 8px;      /* 위아래만 살짝 간격 */
+          border: none;           /* 모든 테두리 제거 */
+          background: none;       /* 배경 제거 */
+          }
+  
+          .scene-divider{
+          grid-column:1 / -1;
+          text-align:center;
+          opacity:.7;
+          letter-spacing:.2em;
+          margin:6px 0;
+          }
+          /* 강조(선택 사항) */
+          .speaker-woods  { color: rgb(254, 186, 13); }
+          .speaker-ttiti  { color: rgb(255, 255, 255); }
+  
+          /* 모바일 대응: 너무 좁을 땐 이름줄 위로 올려 1열로 안전하게 */
+          @media (max-width: 480px){
+          .script-grid{ grid-template-columns: 1fr; }
+          .line .name{ text-align:left; margin-top:8px; }
+          }
+          </style>
+  
+        <div class="script-grid">
+        <!-- 지문 예시 -->
+        <div class="narration">임시 보호소.</div>
+        <div class="narration">
+        낑낑거리며 울던 띠띠는 인기척을 느끼고 천천히 고개를 든다. 나이 들어 흐릿해진 눈이지만, 그 목소리만큼은 단번에 알아챘다.
+        </div>
+  
+        <!-- 대사 라인들: 이름(왼쪽 고정) / 대사(오른쪽 동일 시작점) -->
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        띠띠… 나야. 혼자 무서웠지.
+        </div>
 
-          <p><span class="white">조사 방법</span><br>
-            1. 각자 [어디/누구]를 조사할지 말합니다.<br>
-            2. 해당 [장소/인물]를/을 1번 조사합니다.<br>
-            3. 조사한 내용에 대해 [논의]합니다.<br>
-            4. 다음 [조사]를 시작합니다.</p>
+        <div class="narration">
+        띠띠는 벌떡 일어났지만 크게 짖지 않는다. 우즈가 손을 들어 조용히 하라는 신호를 보냈기 때문이다. 띠띠는 숨을 가쁘게 몰아쉬며 작게 울음섞인 소리를 낸다.
+        </div>
+  
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        왈…왈…(우즈야? 괜찮은 거야?)
+        </div>
+  
+        <div class="narration">
+        놀라운 일이 벌어졌다. 띠띠의 울음소리가 우즈에게 말처럼 들리기 시작했다.
+        </div>
 
-          <p>조사 중 [조건]을 충족한다면 <span class="yellow">「추가 조사」</span>가 가능합니다. </p>
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        띠띠, 지금 네 말… 내가 듣고 있는 거 맞아?
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        왈… 왈왈. 왈.(우즈… 헤일리가… 헤일리가 죽었어. 나 때문이야. 내가 지키지 못했어.)
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        아니야, 띠띠. 너 때문이 아니야. 그날 무슨 일이 있었어?
+        </div>
+        
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        왈! 왈왈! 왈…(그날 누가 집에 왔었어! 냄새는 기억해! 하지만 앞이 잘 안 보여서 누군지는…)
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        띠띠, 우리가 범인을 잡자. 경찰은 지금 힘이 없대. 우리가 헤일리의 억울함을 풀어야 해. 어쩌면 지금 네 목소리가 들리는 것도… 헤일리가 우리에게 부탁하는 걸지도 몰라.
+        </div>
+        
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        왈…(헤일리…)
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        우선 우리 집으로 가자. 현장을 살펴봐야 해.
+        </div>
+
+        <div class="narration">
+        우즈와 띠띠는 보호소 직원이 정신 없는 틈을 타 뒷문으로 몰래 빠져나왔다. 둘은 헤일리와 자신들이 살던 곳을 향해 힘차게 달려갔다.
+        </div>
+
+        <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+        <div class="narration">헤일리의 집.</div>
+
+        <div class="narration">
+        행복이 넘치던 그들의 집엔 폴리스 라인만 가득했다. 사건 조사를 위해서인지 문은 잠겨져 있지 않았다. 반쯤 열려있던 문 틈으로 띠띠가 먼저 들어갔고, 뒤따라 우즈가 들어갔다.
+        
+        용맹하게 먼저 들어간 띠띠는 집안에서 강하게 풍겨오는 피냄새에 뒷걸음치며 우즈 뒤로 숨어 흐느꼈다. 그런 띠띠를 달랜 우즈는, 찬찬히 집안 상황을 살폈다. 집안은 가구가 엉망이고 유리 조각이 흩어져 있었다. 우즈는 천천히 헤일리가 쓰러져 있던 자리로 향했다.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        띠띠, 여기 탁자에 묻은 피… 이거 헤일리 거일까?
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        킁킁… 왈.(피냄새는 확실한데… 잘 모르겠어.)
+        </div>
+
+        <div class="narration">
+        생각보다 처참한 집안의 모습에 우즈는 자신이 무엇을 할 수 있을지 자신감이 사라지고 있던 참, 바닥에 떨어진 폴라로이드 카메라를 발견한다.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        바로 이거야! 띠띠, 기억나? 네가 이걸로 우리 사진 찍어줬잖아. 네가 용의자들 집에 몰래 들어가서 증거를 찍어오는 거야! 넌 강아지니까 사람들이 의심하지 않을 거야.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        왈…? 왈…(내가 할 수 있을까? 지금은 앞도 잘 안 보이는데…)
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        괜찮아. 넌 냄새를 잘 맡잖아. 수상한 냄새가 나는 곳을 찾으면, 그쪽으로 카메라를 향하게 하고 이 버튼을 예전처럼 앞발로 꾹 누르는 거야. 잘 안 보이면 코로 눌러도 돼. 네가 찍어온 사진 속 작은 거라도 단서가 될 거야. 경찰은 영장이 없어서 못 들어간대. 지금 믿을 수 있는 건 너뿐이야.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        왈! 왈!(해볼게! 헤일리를 위해서!)
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+        좋아! 나는 마을을 돌며 사람들 이야기를 들어볼게. 헤일리가 왜 죽었는지, 누가 왜 조작하려는지를 알아볼게. 각자 조사하고 여기서 다시 만나자.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+        왈, 왈!(조심해, 우즈.)
+        </div>
+
+        <div class="narration">
+        띠띠는 폴라로이드를 목에 걸고 밖으로 나섰다. 우즈도 뒤따라 나가며 사람들 속으로 향했다.
+        </div>
+
+        </div>
+        </section>
+        <!-- ↑↑↑ 2차 대본 넣기 ↑↑↑ -->
+
+          <p><span class="yellow">조사 규칙</span><br>
+          「조사 및 논의」 시간은 <span class="yellow">【30분】</span>입니다. 이 시간 동안 [각자의 조사 내용]을 확인할 수 있습니다.</p>
+
+          <p><span class="white">논의 방법</span><br>
+          단서(각자의 조사 내용)를 먼저 충분히 읽고 정리한 뒤 공유해도 되고, 바로 서로에게 말해가며 확인해도 됩니다. 어떤 방식으로 진행하든, ‘단서 확인 → 서로 정보 공유 → 논의’까지의 전체 과정이 【30분】 안에 끝나야 합니다. 【30분】이 지나면 바로 「조사 및 논의」를 종료합니다.</p>
+
+          <span class="white">논의 중 [조건]을 충족하면 「히든 조사」가 가능합니다.</span>
+
           <p><span class="yellow">「2차 대본 읽기」와 「조사 규칙」 확인이 끝났다면 「1차 조사 및 논의」를 진행하세요.</span></p>
         </div>
       </details>
@@ -460,7 +645,45 @@
       <details class="acc">
         <summary><span class="label">추가 자료 확인</span></summary>
         <div class="acc-body">
-          마이크를 음소거한 상태에서 <span class="yellow">【10분】</span> 동안 「추가 정보:우즈 Story+(서사+)」를 숙지해 주세요.
+          마이크를 음소거한 상태에서 <span class="yellow">【10분】</span> 동안 「추가 자료:우즈 Story+(서사+)」를 숙지해 주세요.
+          <div class="subpanel">
+            <strong class="white">오늘의 이야기+: 우즈</strong>
+            <p>【띠띠】와 조사 내용을 나눴지만, 여전히 범인을 특정할 수는 없었다. 게다가 더 큰 문제가 있었다. 설령 진실을 밝혀낸다 해도, 그것을 누구에게 전달해야 할지 알 수 없었다. 외부 압력에 흔들리는 경찰을 과연 믿을 수 있을까.</p>
+            <p>"【띠띠】, 난 경찰서에 가볼게. 용의자들이 거기 있다고 했잖아. 뭐라도 얻어낼 수 있을지도 몰라."</p>
+            <p>"왈왈?" (괜찮아? 위험한 거 아냐?)</p>
+            <p>"시간이 없어. 지금은 움직여야 해."</p>
+            <p>【띠띠】는 잠시 고민하더니 고개를 끄덕였다.</p>
+            <p>"왈왈왈." (그럼 난 마을을 한 번 더 둘러볼게. 단서가 있을지도 몰라. 경찰서 옆 건물에서 만나자.)</p>
+            <p>"그래. 거기서 보자."</p>
+            <p>경찰서 앞은 소란스러웠고, 그 틈을 타 안으로 들어갔다. 복도를 따라 걸으며 문패를 확인했다. '심문실 1', '심문실 2'… 그리고 '증거품 보관소'. 【헤일리】 사건 관련 증거도 저 안에 있을 것이다. 그러나 문은 지문 인식으로 잠겨 있었고, 위에는 CCTV까지 달려 있었다. 이곳을 아무나 드나들 수 있을 리 없었다.</p>
+            <p>그때, 복도 끝에서 언성이 높아졌다. 조심스레 다가갔다.</p>
+            <p>변호사로 보이는 인물이 경감과 대치 중이었다.</p>
+            <p>"1시간 후면 【제이슨 씨】를 풀어줘야 합니다. 영장 없이 더는 구금할 수 없어요."</p>
+            <p>"두 명이나 죽은 사건입니다! 영장이 안 나오는 게 이상하다고요. 설마… 【제이슨】의 아버지가 주지사라서 수사에 개입한 겁니까?"</p>
+            <p>"말 조심하시죠."</p>
+            <p>변호사는 차갑게 끊었다. 그는 【제이슨】은 무죄이고, 주지사는 억울한 아들을 돕고 있을 뿐이라고 말했다. 경감은 주먹을 꽉 쥔 채 말했다.</p>
+            <p>"우린 용의자와 변호사의 대화조차 직접 들을 수 없습니다. 이 사건은 지금 억압받고 있어요."</p>
+            <p>"그러게 예전에 수사를 제대로 하셨어야죠. 주지사님이 이 마을을 얼마나 싫어하시는지 모르시진 않잖아요."</p>
+            <p>"작정하고 숨은 아이를 어떻게 찾습니까…."</p>
+            <p>경감의 목소리가 점점 낮아졌다. 변호사는 '심문실 1' 안으로 들어갔고, 문틈으로 얼굴을 감싸 쥔 채 떨고 있는 【제이슨】의 모습이 보였다.</p>
+            <p>경감은 무기력하게 복도에 남았다. 지금 그에게 다가가봐야 얻을 수 있는 것은 없으리라 생각했다. 돌아서려던 그때.</p>
+            <p>"거기 누구야!"</p>
+            <p>급히 자판기 뒤로 몸을 숨겼다. 발소리가 가까워졌다. 들켰다고 생각한 순간, 옆에서 쓰레기통이 넘어지며 누군가 나타났다.</p>
+            <p>"아… 경감님, 저예요. 【썬즈】."</p>
+            <p>신문사 '리틀 데일리'의 기자. 사진 편집을 도와준 적이 있었고, 무엇보다 【헤일리】의 고교 동창이었다.</p>
+            <p>"【썬즈】. 여기 함부로 들어오지 말라고 했지."</p>
+            <p>"이번 사건, 구린내가 나잖아요. 방금 들은 말도 그렇고."</p>
+            <p>"지금 구린 내는 너한테서 더 많이 나. 이건 잘못 건드리면 크게 다친다."</p>
+            <p>"하지만 진실을 밝히는 게 우리의 일이잖아요. 그리고… 【헤일리】는 제 친구였어요. 억울한 죽음은 밝혀져야 하잖아요."</p>
+            <p>"대체 어떻게 할 건데?"</p>
+            <p>경감은 지금 섣불리 움직였다가는 남은 몇 안 되는 증거마저 사라질 수 있다고 했다. 일단 물러나서 때를 기다려야 한다고. 그 말에 【썬즈】는 이를 악문 채 경찰서를 나갔다. 나도 조용히 뒤를 따랐다.</p>
+            <p>경찰서 앞에서 그녀는 하늘을 바라보며 주먹을 꽉 쥐고 있었다.</p>
+            <p>"【헤일리】… 내가 널 돕게 해줘. 제발… 꿈에라도 나타나서 실마리 하나만 줘. 내가 기사로 쓸게. 사람들이 이 사건을 보기만 한다면… 아무리 힘 있는 사람이라도 막을 수 없을 거야…."</p>
+            <p>말끝이 떨리더니, 그녀는 조용히 주저앉아 울기 시작했다.</p>
+            <p>그 순간, 내가 해야 할 일이 선명해졌다.</p>
+            <p>【띠띠】와 함께 범인을 찾아내고, 증거를 손에 넣은 뒤, 그것을 【썬즈】에게 전달하는 것. 이 방법만이 【헤일리】의 억울함을 풀 수 있는 유일한 길이다.</p>
+            <p>나는 곧장 【띠띠】와 약속한 장소로 향했다. 남은 시간은 이제 1시간도 되지 않았다.</p>
+          </div>
           <p><span class="yellow">「추가 자료 확인」이 끝났다면 「2차 조사 및 논의」를 진행하세요.</span></p>
         </div>
       </details>
@@ -476,9 +699,8 @@
       <details class="acc">
         <summary><span class="label">투표 및 엔딩 확인</span></summary>
         <div class="acc-body">
-          범인이라고 생각하는 인물을 합의하여 선택해 주세요.<br>
-          용의자는 <span class="white">【우즈】, 【띠띠】, 【제이슨】, 【톰】, 【마크】, 【레오】, 【루카스】</span>입니다.<br>
-          동기도 지금 단계에서 합의하여 결정짓습니다.<br>
+          범인이라고 생각하는 인물을 합의하여 선택해 주세요. 용의자는 <span class="white">【우즈】, 【띠띠】, 【제이슨】, 【톰】, 【마크】, 【레오】, 【루카스】</span>입니다.<br>
+          동기도 지금 단계에서 합의하여 결정짓습니다. 우즈 개인 목표에 대한 답(나를 공격한 인물)은 따로 적어둔 뒤 사건의 진상에서 정답을 확인해 주세요.
           <p><span class="yellow">「범인 투표」에 대한 결정이 끝났다면 [다음]을 눌러주세요.</span></p>
         </div>
       </details>
