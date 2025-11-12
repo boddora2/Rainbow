@@ -290,3 +290,7 @@ body {
     width: 80%;
   }
 }
+
+#ending-text, #epilogue-text, #truth-text {
+  white-space: pre-line;
+}
