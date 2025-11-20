@@ -291,6 +291,6 @@ body {
   }
 }
 
-#ending-text, #epilogue-text, #truth-text {
+  #ending-text, #epilogue-text, #truth-text {
   white-space: pre-line;
 }
