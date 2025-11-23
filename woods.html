@@ -144,83 +144,97 @@
    히든 조사 조건 영역
    ───────────────────────────── */
 
-   .hidden-condition {
-  margin-top: 16px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-
-.hidden-condition p {
-  margin: 4px 0 10px;
-  line-height: 1.6;
-}
-
+/* 히든 조사: 입력줄 박스 */
 .hidden-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 6px 0 4px;
+  gap: 10px;
+  margin: 16px 0 12px;
+  justify-content: center;   /* 입력칸 + 능력 라벨 둘 다 가운데 정렬 */
 }
 
-/* [ ] 입력칸 */
-.hidden-input {
-  width: 80px;
-  padding: 6px 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(0,0,0,0.2);
-  color: #fff;
-  font-size: 14px;
-}
-
-/* 입력칸 오른쪽에 붙는 "능력" 글자 */
+/* 능력 label */
 .hidden-label-inline {
-  font-size: 14px;
-  color: var(--muted);
-}
-
-/* 히든 조사 시작 버튼 (아래 줄) */
-.hidden-btn {
-  display: inline-block;
-  margin-top: 6px;
-  padding: 7px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.04);
   color: #fff;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background .15s ease, border-color .15s ease, opacity .15s ease;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
+/* 입력칸 자체 디자인 */
+.hidden-input {
+  width: 90px;
+  padding: 8px 10px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.25);
+
+  background: rgba(255,255,255,0.9);   /* 밝은 흰색 배경 */
+  color: #000;                         /* 글자는 검정 */
+
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+
+  outline: none;
+  transition: all .2s ease;
+}
+
+/* placeholder를 더 예쁜 회색으로 */
+.hidden-input::placeholder {
+  color: rgba(0,0,0,0.45);   /* ㅁ 색 */
+  font-weight: 500;
+}
+
+/* 포커스 시 빛나는 효과 */
+.hidden-input:focus {
+  background: rgba(255,255,255,1);
+  border-color: rgba(255,255,255,0.8);
+  box-shadow: 0 0 6px rgba(255,255,255,0.5);
+}
+
+/* 히든 조사 시작 버튼 */
+.hidden-btn {
+  margin: 12px auto 4px;
+  display: block;
+  width: 170px;
+  padding: 10px 0;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+
+  background: rgba(255,255,255,0.9);
+  color: #000;
+
+  font-weight: 800;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+
+  transition: all .25s ease;
+}
+
+/* 호버 */
+.hidden-btn:hover:not(:disabled) {
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+/* 비활성화 */
 .hidden-btn:disabled {
   opacity: 0.4;
-  cursor: default;
+  cursor: not-allowed;
+  background: rgba(255,255,255,0.4);
+  color: rgba(0,0,0,0.45);
 }
 
-.hidden-btn:not(:disabled):hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.4);
-}
-
+/* 설명 문구 */
 .hidden-msg {
+  text-align: center;
   font-size: 13px;
   color: var(--muted);
-  margin: 4px 0 0;
+  margin-top: 6px;
 }
-
-.hidden-investigation {
-  margin-top: 10px;
-  display: none;
-}
-
-.hidden-investigation.active {
-  display: block;
-}
-
 
 </style>
 </head>
@@ -1055,7 +1069,7 @@
       abilityInput.readOnly = true;
 
       if (hiddenMsg) {
-        hiddenMsg.textContent = '히든 조사가 가능합니다';
+        hiddenMsg.textContent = '우즈가 0(영)능력을 사용합니다. 지금부터 히든 조사가 가능합니다';
       }
     });
   }
