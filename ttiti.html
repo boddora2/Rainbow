@@ -138,6 +138,82 @@
 .acc-sub[open] summary::after {
   content: '▴';
 }
+
+/* ─────────────────────────────
+   히든 조사 조건 영역
+   ───────────────────────────── */
+
+   .hidden-condition {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.hidden-condition p {
+  margin: 4px 0 10px;
+  line-height: 1.6;
+}
+
+.hidden-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 4px;
+}
+
+/* [ ] 능력 입력칸 */
+.hidden-input {
+  width: 80px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.2);
+  color: #fff;
+  font-size: 14px;
+}
+
+/* 히든 조사 시작 버튼 */
+.hidden-btn {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, opacity .15s ease;
+}
+
+.hidden-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.hidden-btn:not(:disabled):hover {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* 안내 문구 */
+.hidden-msg {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 2px 0 0;
+}
+
+/* 히든 조사 내용 블럭 (처음엔 숨김) */
+.hidden-investigation {
+  margin-top: 10px;
+  display: none;
+}
+
+.hidden-investigation.active {
+  display: block;
+}
+
 </style>
 </head>
 <body>
@@ -653,7 +729,7 @@
           단서(각자의 조사 내용)를 먼저 충분히 읽고 정리한 뒤 공유해도 되고, 바로 서로에게 말해가며 확인해도 됩니다. 어떤 방식으로 진행하든, ‘단서 확인 → 서로 정보 공유 → 논의’까지의 전체 과정이 【20분】 안에 끝나야 합니다. 【20분】이 지나면 바로 「조사 및 논의」를 종료합니다.</p>
 
           <span class="white">논의 중 [조건]을 충족하면 「히든 조사」가 가능합니다.</span>
-          
+
           <p><span class="yellow">「2차 대본 읽기」와 「조사 규칙」 확인이 끝났다면 「1차 조사 및 논의」를 진행하세요.</span></p>
         </div>
       </details>

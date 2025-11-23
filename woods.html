@@ -139,6 +139,82 @@
 .acc-sub[open] summary::after {
   content: '▴';
 }
+
+/* ─────────────────────────────
+   히든 조사 조건 영역
+   ───────────────────────────── */
+
+   .hidden-condition {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.hidden-condition p {
+  margin: 4px 0 10px;
+  line-height: 1.6;
+}
+
+.hidden-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 4px;
+}
+
+/* [ ] 능력 입력칸 */
+.hidden-input {
+  width: 80px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.2);
+  color: #fff;
+  font-size: 14px;
+}
+
+/* 히든 조사 시작 버튼 */
+.hidden-btn {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, opacity .15s ease;
+}
+
+.hidden-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.hidden-btn:not(:disabled):hover {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* 안내 문구 */
+.hidden-msg {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 2px 0 0;
+}
+
+/* 히든 조사 내용 블럭 (처음엔 숨김) */
+.hidden-investigation {
+  margin-top: 10px;
+  display: none;
+}
+
+.hidden-investigation.active {
+  display: block;
+}
+
 </style>
 </head>
 <body>
@@ -693,10 +769,10 @@
                   <ul>
                     <li>“【헤일리】가 이사 가고 나면 그 집을 <span class="yellow">'애니멀 쉼터'</span>로 바꾸려 했다더라?”</li>
                     <li>“집을 아예 허물고 자연 친화적으로 다시 짓으려 했다던데?”</li>
-                    <li>“근데 말이야, 그 집이 원래 【헤일리 부모님】이 14년 전에 직접 지은 거라서 <span class="yellow">【톰 씨】가 허무는 걸 반대했다</span>더라.”</li>
-                    <li>“<span class="yellow">【레오 씨】는 또 집 허물면 땅값 오른다고, 그 땅을 사고 싶어 했다</span>고 하고.”</li>
-                    <li>“<span class="yellow">【루카스 씨】는 애니멀 쉼터로 만들기 위해 집을 허무는 거라면 자기가 인수해서 개조하겠다고 했다</span>더라.”</li>
-                    <li>“그러고 보니 <span class="yellow">【제이슨】도 【헤일리】 집에 관심 보였다</span>고 하던데? 그 이유야 뻔하겠지만.”</li>
+                    <li>“근데 말이야, 그 집이 원래 【헤일리 부모님】이 직접 지은 거라서 <span class="yellow">【톰 씨】</span>가 허무는 걸 반대했다더라.”</li>
+                    <li>“<span class="yellow">【레오 씨】</span>는 집을 허물면 부동산 이용 가치가 높아진다고, 그 땅을 자기에게 팔라고 했다더라.”</li>
+                    <li>“<span class="yellow">【루카스 씨】</span>는 애니멀 쉼터로 만들기 위해 집을 허무는 거라면 본인이 인수해서 개조하겠다고 했다더라.”</li>
+                    <li>“그러고 보니 <span class="yellow">【제이슨】</span>도 【헤일리】 집에 관심 보였다고 하던데? 그 이유야 뻔하겠지만.”</li>
                   </ul>
                 </div>
               </details>
@@ -710,7 +786,8 @@
                   <ul>
                     <li>“며칠 전에 【헤일리】가 이사 준비하면서 <span class="yellow">바자회</span>를 열었잖아?”</li>
                     <li>“안 쓰는 가구나 옷 같은 거 팔고 나누고 그랬지.”</li>
-                    <li>“【우즈】 옷도 꽤 많이 나왔더라. <span class="yellow">【제이슨】 빼고는 거의 다들 하나씩 받아 갔었지.</span>”</li>
+                    <li>“【우즈】 옷이랑 【띠띠】 장난감이 꽤 많이 나왔었지."</li>
+                    <li>"대작가가 될 【우즈】의 소장품이라면서 <span class="yellow">【제이슨】 빼고는 다들 하나씩 받아 갔었지.</span>”</li>
                   </ul>
                 </div>
               </details>
@@ -740,16 +817,107 @@
                 <div class="char-body">
                   <ul>
                     <li>“이번 사건… 별 탈 없이 넘어갔으면 좋겠어.”</li>
-                    <li>“<span class="yellow">14년 전</span> 기억나지? <span class="yellow">【제이슨】의 동생 【준】</span>이 실종됐을 때 난리도 아니었잖아.”</li>
+                    <li>“<span class="yellow">14년 전</span> 기억나지? <span class="yellow">【제이슨】의 동생 【준】이 실종</span>됐을 때 난리도 아니었잖아.”</li>
                     <li>“요양 왔다가 사라진 애 때문에 【제이슨】도 곤란했지. 그 일 이후로 집안에서 미움 받아서 여기 쫓기듯 남았다는 말도 있었고.”</li>
                     <li>“근데 이상한 게 뭔지 알아? 동생이 사라졌는데… 오히려 【제이슨】이 더 밝아 보였다는 거야.”</li>
-                    <li>“그리고 <span class="yellow">10년 전 【헤일리 부모님】 뺑소니 사건</span>… 그때 마을에 CCTV가 없어서 범인도 못 잡았잖아. 그 일 이후로 【톰】이 많이 변했지.”</li>
+                    <li>“그리고 <span class="yellow">10년 전 【헤일리 부모님】 뺑소니 사건</span>… 그때 마을에 CCTV가 없어서 범인도 못 잡았잖아."</li>
+                    <li>"【톰】에게 줄 선물에 문제가 생겼다고 급히 알아보러 가다가 사고가 났었지… 그 날 이후로 【톰】도 많이 변했지.”</li>
                   </ul>
                 </div>
               </details>
           
             </div>
           </div>
+
+          <div class="subpanel hidden-condition">
+            <strong class="yellow">[조건부] 히든 조사</strong>
+            <p><span class="yellow">[조건]</span>을 충족하면 「히든 조사」가 가능합니다.</p>
+          
+            <div class="hidden-row">
+              <label for="woods-ability" class="white">[ 능력 ]</label>
+              <input
+                id="woods-ability"
+                class="hidden-input"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                max="99"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                id="woods-hidden-start"
+                class="hidden-btn"
+                disabled
+              >
+                히든 조사 시작
+              </button>
+            </div>
+          
+            <p id="woods-hidden-msg" class="hidden-msg">
+              숫자 <strong>0</strong>을 정확히 입력하면 「히든 조사 시작」 버튼이 활성화됩니다.
+            </p>
+          
+            <!-- 히든 조사 내용 (처음에는 닫혀 있음) -->
+            <div
+              id="woods-hidden-section"
+              class="hidden-investigation"
+              aria-hidden="true"
+            >
+              <div class="char-accordion">
+                <!-- 히든 조사 1 -->
+                <details class="char-acc">
+                  <summary>
+                    <span class="white">히든 조사 1</span>
+                  </summary>
+                  <div class="char-body">
+                    <p>여기에 히든 조사 1 내용을 넣으면 돼! (예: 우즈가 몰래 확인한 기록 등)</p>
+                  </div>
+                </details>
+          
+                <!-- 히든 조사 2 -->
+                <details class="char-acc">
+                  <summary>
+                    <span class="white">히든 조사 2</span>
+                  </summary>
+                  <div class="char-body">
+                    <p>여기에 히든 조사 2 내용을 넣기.</p>
+                  </div>
+                </details>
+          
+                <!-- 히든 조사 3 -->
+                <details class="char-acc">
+                  <summary>
+                    <span class="white">히든 조사 3</span>
+                  </summary>
+                  <div class="char-body">
+                    <p>여기에 히든 조사 3 내용을 넣기.</p>
+                  </div>
+                </details>
+          
+                <!-- 히든 조사 4 -->
+                <details class="char-acc">
+                  <summary>
+                    <span class="white">히든 조사 4</span>
+                  </summary>
+                  <div class="char-body">
+                    <p>여기에 히든 조사 4 내용을 넣기.</p>
+                  </div>
+                </details>
+          
+                <!-- 히든 조사 5 -->
+                <details class="char-acc">
+                  <summary>
+                    <span class="white">히든 조사 5</span>
+                  </summary>
+                  <div class="char-body">
+                    <p>여기에 히든 조사 5 내용을 넣기.</p>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+          
 
           <p><span class="yellow">「1차 조사 및 논의」가 끝났다면 「추가 자료 확인」을 진행하세요.</span></p>
         </div>
@@ -847,6 +1015,40 @@
   document.querySelector('#logout')?.addEventListener('click', (e) => {
     e.preventDefault(); logout();
   });
+
+  // ───────── 히든 조사(우즈용) 스크립트 ─────────
+  const abilityInput   = document.querySelector('#woods-ability');
+  const hiddenBtn      = document.querySelector('#woods-hidden-start');
+  const hiddenSection  = document.querySelector('#woods-hidden-section');
+  const hiddenMsg      = document.querySelector('#woods-hidden-msg');
+
+  if (abilityInput && hiddenBtn && hiddenSection) {
+    const checkAbility = () => {
+      const value = abilityInput.value.trim();
+      // 조건: 정확히 "0"일 때만 버튼 활성화
+      if (value === '0') {
+        hiddenBtn.disabled = false;
+      } else {
+        hiddenBtn.disabled = true;
+      }
+    };
+
+    abilityInput.addEventListener('input', checkAbility);
+
+    hiddenBtn.addEventListener('click', () => {
+      // 히든 조사 구역 열기
+      hiddenSection.classList.add('active');
+      hiddenSection.setAttribute('aria-hidden', 'false');
+
+      // 더 이상 수정 못 하게 잠금
+      hiddenBtn.disabled = true;
+      abilityInput.readOnly = true;
+
+      if (hiddenMsg) {
+        hiddenMsg.textContent = '히든 조사가 가능합니다';
+      }
+    });
+  }
 </script>
 </body>
 </html>
