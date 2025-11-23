@@ -312,3 +312,92 @@ body {
   border-radius: 16px;    /* 모서리 살짝 둥글게 (취향껏) */
   display: block;
 }
+
+/* ─────────────────────────────────────
+   작은 아코디언(캐릭터/주민 증언용)
+   .char-accordion   → 전체 래퍼
+   .char-acc         → 하나의 아코디언
+   .char-body        → 내부 내용
+   summary::after    → 화살표
+   ───────────────────────────────────── */
+
+   .char-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* 아코디언 간격 */
+    margin-top: 6px;
+  }
+  
+  /* 개별 아코디언 박스 */
+  .char-acc {
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 0 12px;
+    overflow: hidden;
+  }
+  
+  /* summary 스타일 */
+  .char-acc summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 28px 10px 0;
+    margin: 0;
+    position: relative;
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+  }
+  
+  /* 기본 화살표 제거 */
+  .char-acc summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  /* 닫힘(▾) / 열림(▴) */
+  .char-acc summary::after {
+    content: "▾";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .9;
+    font-size: 14px;
+  }
+  .char-acc[open] summary::after {
+    content: "▴";
+  }
+  
+  /* 내부 내용 영역 */
+  .char-body {
+    padding: 6px 0 14px 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  
+  /* 내부 <p> 기본 간격 */
+  .char-body p {
+    margin: 4px 0 10px;
+  }
+  
+  /* 내부 <ul> 리스트 예쁘게 */
+  .char-body ul {
+    margin: 4px 0 0;
+    padding-left: 18px;
+  }
+  .char-body li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+  
+  /* 모바일 대응 */
+  @media (max-width: 600px) {
+    .char-acc summary {
+      font-size: 14px;
+    }
+    .char-body {
+      font-size: 13.5px;
+    }
+  }
+  
