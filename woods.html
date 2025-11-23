@@ -160,12 +160,12 @@
 .hidden-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
   margin: 6px 0 4px;
 }
 
-/* [ ] 능력 입력칸 */
+/* [ ] 입력칸 */
 .hidden-input {
   width: 80px;
   padding: 6px 8px;
@@ -176,8 +176,16 @@
   font-size: 14px;
 }
 
-/* 히든 조사 시작 버튼 */
+/* 입력칸 오른쪽에 붙는 "능력" 글자 */
+.hidden-label-inline {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* 히든 조사 시작 버튼 (아래 줄) */
 .hidden-btn {
+  display: inline-block;
+  margin-top: 6px;
   padding: 7px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.2);
@@ -198,14 +206,12 @@
   border-color: rgba(255,255,255,0.4);
 }
 
-/* 안내 문구 */
 .hidden-msg {
   font-size: 13px;
   color: var(--muted);
-  margin: 2px 0 0;
+  margin: 4px 0 0;
 }
 
-/* 히든 조사 내용 블럭 (처음엔 숨김) */
 .hidden-investigation {
   margin-top: 10px;
   display: none;
@@ -214,6 +220,7 @@
 .hidden-investigation.active {
   display: block;
 }
+
 
 </style>
 </head>
@@ -833,8 +840,8 @@
             <strong class="yellow">[조건부] 히든 조사</strong>
             <p><span class="yellow">[조건]</span>을 충족하면 「히든 조사」가 가능합니다.</p>
           
+            <!-- 윗줄: [ 0 ] 능력 -->
             <div class="hidden-row">
-              <label for="woods-ability" class="white">[ 능력 ]</label>
               <input
                 id="woods-ability"
                 class="hidden-input"
@@ -842,21 +849,23 @@
                 inputmode="numeric"
                 min="0"
                 max="99"
-                placeholder="0"
+                placeholder="ㅁ"
               />
-              <button
-                type="button"
-                id="woods-hidden-start"
-                class="hidden-btn"
-                disabled
-              >
-                히든 조사 시작
-              </button>
+              <span class="hidden-label-inline">능력</span>
             </div>
-          
+            
+            <button
+              type="button"
+              id="woods-hidden-start"
+              class="hidden-btn"
+              disabled
+            >
+              히든 조사 시작
+            </button>
+            
             <p id="woods-hidden-msg" class="hidden-msg">
-              숫자 <strong>0</strong>을 정확히 입력하면 「히든 조사 시작」 버튼이 활성화됩니다.
-            </p>
+              올바른 값을 입력하면 「히든 조사 시작」 버튼이 활성화됩니다.
+            </p>                     
           
             <!-- 히든 조사 내용 (처음에는 닫혀 있음) -->
             <div
@@ -871,7 +880,7 @@
                     <span class="white">히든 조사 1</span>
                   </summary>
                   <div class="char-body">
-                    <p>여기에 히든 조사 1 내용을 넣으면 돼! (예: 우즈가 몰래 확인한 기록 등)</p>
+                    <p>여기에 히든 조사 1 내용을 넣기.</p>
                   </div>
                 </details>
           
@@ -917,6 +926,7 @@
               </div>
             </div>
           </div>
+          
           
 
           <p><span class="yellow">「1차 조사 및 논의」가 끝났다면 「추가 자료 확인」을 진행하세요.</span></p>
