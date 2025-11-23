@@ -236,6 +236,10 @@
   margin-top: 6px;
 }
 
+.hidden-investigation {
+  display: none;
+}
+
 </style>
 </head>
 <body>
@@ -881,67 +885,35 @@
               올바른 값을 입력하면 「히든 조사 시작」 버튼이 활성화됩니다.
             </p>                     
           
-            <!-- 히든 조사 내용 (처음에는 닫혀 있음) -->
-            <div
-              id="woods-hidden-section"
-              class="hidden-investigation"
-              aria-hidden="true"
-            >
-              <div class="char-accordion">
-                <!-- 히든 조사 1 -->
-                <details class="char-acc">
-                  <summary>
-                    <span class="white">히든 조사 1</span>
-                  </summary>
-                  <div class="char-body">
-                    <p>여기에 히든 조사 1 내용을 넣기.</p>
-                  </div>
-                </details>
-          
-                <!-- 히든 조사 2 -->
-                <details class="char-acc">
-                  <summary>
-                    <span class="white">히든 조사 2</span>
-                  </summary>
-                  <div class="char-body">
-                    <p>여기에 히든 조사 2 내용을 넣기.</p>
-                  </div>
-                </details>
-          
-                <!-- 히든 조사 3 -->
-                <details class="char-acc">
-                  <summary>
-                    <span class="white">히든 조사 3</span>
-                  </summary>
-                  <div class="char-body">
-                    <p>여기에 히든 조사 3 내용을 넣기.</p>
-                  </div>
-                </details>
-          
-                <!-- 히든 조사 4 -->
-                <details class="char-acc">
-                  <summary>
-                    <span class="white">히든 조사 4</span>
-                  </summary>
-                  <div class="char-body">
-                    <p>여기에 히든 조사 4 내용을 넣기.</p>
-                  </div>
-                </details>
-          
-                <!-- 히든 조사 5 -->
-                <details class="char-acc">
-                  <summary>
-                    <span class="white">히든 조사 5</span>
-                  </summary>
-                  <div class="char-body">
-                    <p>여기에 히든 조사 5 내용을 넣기.</p>
-                  </div>
-                </details>
-              </div>
+            <!-- 히든 조사 전체 (처음엔 숨김) -->
+            <div id="hidden-sections" style="display:none;">
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 1</strong>
+              <p>내용...</p>
             </div>
-          </div>
-          
-          
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 2</strong>
+              <p>내용...</p>
+            </div>
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 3</strong>
+              <p>내용...</p>
+            </div>
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 4</strong>
+              <p>내용...</p>
+            </div>
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 5</strong>
+              <p>내용...</p>
+            </div>
+
+            </div>
 
           <p><span class="yellow">「1차 조사 및 논의」가 끝났다면 「추가 자료 확인」을 진행하세요.</span></p>
         </div>
@@ -1037,14 +1009,15 @@
   import { guard, logout } from "./gate.js";
   guard();
   document.querySelector('#logout')?.addEventListener('click', (e) => {
-    e.preventDefault(); logout();
+    e.preventDefault(); 
+    logout();
   });
 
   // ───────── 히든 조사(우즈용) 스크립트 ─────────
-  const abilityInput   = document.querySelector('#woods-ability');
-  const hiddenBtn      = document.querySelector('#woods-hidden-start');
-  const hiddenSection  = document.querySelector('#woods-hidden-section');
-  const hiddenMsg      = document.querySelector('#woods-hidden-msg');
+  const abilityInput  = document.querySelector('#woods-ability');
+  const hiddenBtn     = document.querySelector('#woods-hidden-start');
+  const hiddenSection = document.querySelector('#hidden-sections');   // ★ 여기!
+  const hiddenMsg     = document.querySelector('#woods-hidden-msg');
 
   if (abilityInput && hiddenBtn && hiddenSection) {
     const checkAbility = () => {
@@ -1057,11 +1030,13 @@
       }
     };
 
+    // 입력값 감시
     abilityInput.addEventListener('input', checkAbility);
 
+    // 버튼 클릭 시 히든 조사 열기
     hiddenBtn.addEventListener('click', () => {
-      // 히든 조사 구역 열기
-      hiddenSection.classList.add('active');
+      // 히든 섹션 표시
+      hiddenSection.style.display = 'block';
       hiddenSection.setAttribute('aria-hidden', 'false');
 
       // 더 이상 수정 못 하게 잠금
@@ -1069,10 +1044,15 @@
       abilityInput.readOnly = true;
 
       if (hiddenMsg) {
-        hiddenMsg.textContent = '우즈가 0(영)능력을 사용합니다. 지금부터 히든 조사가 가능합니다';
+        hiddenMsg.textContent = '우즈가 0(영)능력을 사용합니다. 지금부터 히든 조사가 가능합니다.';
       }
+
+      // 화면 아래로 부드럽게 스크롤
+      hiddenSection.scrollIntoView({ behavior: 'smooth' });
     });
   }
 </script>
+
+  
 </body>
 </html>
