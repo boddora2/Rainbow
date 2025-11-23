@@ -136,9 +136,77 @@
     -webkit-tap-highlight-color: transparent;
     }
 
-    #ending-text, #epilogue-text, #truth-text {
+    #ending-text, #truth-text {
     white-space: pre-line;
     }
+
+    /* 에필로그는 대본 박스(HTML)라서 기본값 사용 */
+    #epilogue-text {
+    white-space: normal;
+    }
+
+      /* 스크립트 박스 전체 */
+  .script-box{
+    margin-top:12px;
+    padding:16px 18px;
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:12px;
+    background:rgba(255,255,255,0.03);
+    color:var(--muted);
+  }
+  /* 2열 그리드: 왼쪽 이름 칼럼 고정, 오른쪽 대사 가변 */
+  .script-grid{
+    display:grid;
+    grid-template-columns: 110px 1fr;
+    column-gap:14px;
+    row-gap:14px;
+    line-height:1.7;
+    font-size:15px;
+  }
+  .line .name{
+    font-weight:800;
+    text-align:right;
+    color: rgb(255, 255, 255);
+    white-space:nowrap;
+  }
+  .line .said{
+    color: rgb(255, 255, 255);
+    white-space:pre-wrap;
+    word-break:keep-all;
+    padding: 6px 12px;
+  }
+  .narration{
+    grid-column: 1 / -1;
+    font-style: normal;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.78;
+    padding: 0;
+    margin: 4px 0 8px;
+    border: none;
+    background: none;
+  }
+  .scene-divider{
+    grid-column:1 / -1;
+    text-align:center;
+    opacity:.7;
+    letter-spacing:.2em;
+    margin:6px 0;
+  }
+
+  .speaker-mark   { color: rgb(254, 186, 13); }
+  .speaker-jason  { color: rgb(255, 255, 255); }
+  .speaker-tom    { color: rgb(255, 255, 255); }
+  .speaker-lucas  { color: rgb(254, 186, 13); }
+  .speaker-leo    { color: rgb(254, 186, 13); }
+  .speaker-police { color: rgb(254, 186, 13); }
+  .speaker-woods  { color: rgb(254, 186, 13); }
+  .speaker-ttiti  { color: rgb(255, 255, 255); }
+  .speaker-people { color: rgb(255, 255, 255); }
+
+  @media (max-width: 480px){
+    .script-grid{ grid-template-columns: 1fr; }
+    .line .name{ text-align:left; margin-top:8px; }
+  }
 
   </style>
 </head>
@@ -191,7 +259,7 @@
       <!-- ✅ 에필로그 박스 (사건의 진상 버튼도 포함) -->
       <div id="result-epilogue" class="result" hidden>
         <h3 class="yellow">에필로그(마지막 산책)</h3>
-        <p id="epilogue-text"></p>
+        <div id="epilogue-text"></div>  
         <hr class="divider" />
         <p id="epilogue-note" class="hint"></p>
 
@@ -322,22 +390,355 @@
   endingBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
-  // 마지막 산책 → 에필로그만 표시
+  // 마지막 산책 → 에필로그(3차 대본) 표시
   document.querySelector('#lastWalk')?.addEventListener('click', () => {
-    const epilogue = [
-      "밤공기는 차분했고, 발자국 소리는 짧게 이어졌다.",
-      "우리는 아무 말도 하지 않았지만, 서로가 바라본 그림자는 같은 방향을 가리켰다.",
-      "돌아갈 수 없는 대화의 끝에서, 누군가는 진실을 선택해야 했다."
-      ].join("\n\n");
+    const epilogueHtml = `
+      <section class="script-box" aria-label="마지막 산책 대본">
+        <div class="script-grid">
 
-    epiText.textContent = epilogue;
+        <!-- 경찰서 -->
+        <div class="narration">경찰서</div>
+        <div class="narration">
+          썬즈가 올린 기사로 경찰서는 발칵 뒤집혔다. 구금 시간이 다 되어 풀려나기 직전이었지만,
+          구속 영장이 발부되며 본격적인 수사가 시작되기로 결정되었다.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">된 건가? 이제 수사가 제대로 되겠지?</div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">왈! (웅! 우리가 해냈어.)</div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">고생했어, 띠띠. 이제 범인이 제대로 잡히는지 지켜보자.</div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          ……왈왈왈…… (우즈. 사실 헤일리도 지금 이곳에 있어. 공원에서 우리를 기다린대.
+          우리 여기까지 하고 공원에 가는 건 어때? 헤일리가 마지막으로 산책하고 싶대.)
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">헤일리가……마지막으로?</div>
+
+        <div class="narration">
+          우즈는 잠시 멈칫했다. 헤일리를 다시 만난다는 게 기쁘면서도,
+          동시에 '마지막'이라는 말이 가슴을 무겁게 짓눌렀다.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+          ……그래, 공원으로 가자. 헤일리를 혼자 둘 수는 없지. 가자, 띠띠.
+        </div>
+
+        <div class="narration">
+          우즈와 띠띠는 소란스러운 경찰서를 빠져나와, 헤일리가 기다리고 있는 공원으로 달려갔다.
+          그들이 항상 산책을 나갔던 그곳으로.
+        </div>
+
+        <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+
+        <!-- 공원 -->
+        <div class="narration">공원</div>
+        <div class="narration">
+          제법 쌀쌀한 공기, 해가 지고 어두워진 공원. 가로등 밑, 그림자가 없는 한 여성이 서 있었다.
+          바로 헤일리였다. 헤일리는 우즈와 띠띠를 발견하자 밝게 웃으며 손을 흔들었다.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">왔구나! 기다렸어!</div>
+
+        <div class="narration">
+          우즈는 그녀를 향해 달려가 그대로 껴안았다. 한참을 헤일리를 안고 있던 우즈가
+          헤일리를 품에서 떼어내고 그녀를 바라보았다. 우즈의 입술이 움찔거렸다.
+          하고 싶은 말이 많았지만, 끝내 아무 말도 내뱉지 못한 우즈는 헤일리의 얼굴만 바라보았다.
+          띠띠는 그 옆에 다가와 헤일리의 다리에 기댔다.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">둘 다 정말 고마워. 고생했어. 어때? 이제 미련은 안 남아?</div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">……최선을 다했어. 하지만 끝까지 보지 못해서 조금 찜찜하긴 해.</div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          괜찮아. 우즈와 띠띠가 해준 것만으로도 충분해. 나는 다시 우즈도 볼 수 있고,
+          띠띠도 볼 수 있어서 그것만으로도 행복해.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          왈왈! (나도 헤일리를 다시 볼 수 있어서 행복해. 헤일리 그런데 안 무서웠어?)
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          처음엔 무서웠어. 죽음이라는 게, 끝이라는 게. 그런데 그래도 죽은 후에도
+          이렇게 살아갈 수 있다는 게……안심되더라. 미안하지만, 우즈도 함께라서 나 조금 안심했어.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">……나도 너를 혼자 두지 않아서, 다행이라 생각해.</div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          그래서 걱정됐어. 우즈가 미련이 남아서 여기에, 악령으로 남을까 봐. 그게 너무 무서웠어.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">……괜찮아. 이제. 네가 원하지 않는다면 그럴 일은 없어.</div>
+
+        <div class="narration">
+          잠시 침묵이 흘렀다. 차가운 바람이 공원을 스쳐 지나갔다.
+          헤일리가 먼저 밝게 웃으며 말했다.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          우즈, 띠띠. 우리 다른 건 잊고, 예전처럼 산책하지 않을래?
+          즐거운 마음으로 이별하는 거야. 띠띠가 정말 좋아하는 곳이자 우즈를 처음 만난 이곳,
+          우리의 추억이 가득 담긴 곳이잖아. 이별하기 마지막 장소로 좋은 것 같은데 어때?
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          왈왈! (마지막은 슬프지만, 헤일리와 함께인 건 좋아!)
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">나도……헤일리와 함께 걷는 건 언제나 좋아.</div>
+
+        <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+
+        <div class="narration">
+          그렇게 셋은 가로등이 켜진 공원을 하염없이 걸었다.
+          걷다 멈춰 서다를 반복하며 과거 추억 얘기를 나누며 웃고 또 웃었다.
+          헤일리와 처음 만난 날, 띠띠를 처음 데려온 날, 셋이 함께했던 소소한 일상들.
+          그 모든 순간이 지금은 너무나 소중하게 느껴졌다.
+        </div>
+
+        <div class="narration">
+          어느새 공원 길의 끝에 다다랐다. 헤일리의 표정이 조금씩 슬퍼졌다.
+          그녀는 띠띠를 향해 입을 열었다.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">띠띠, 우리는 이제……떠나야 할 것 같아.</div>
+
+        <div class="narration">
+          우즈는 헤일리의 말에 움찔했다. 알고는 있었지만, 막상 떠나려니 무서워졌다.
+          그런 우즈를 눈치챈 듯, 헤일리는 우즈의 손을 잡으며 말을 이었다.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">돌아가는 길은 띠띠 혼자 가야 하는데……괜찮겠어?</div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          왈왈! 왈! (당연하지. 걱정 마! 헤일리는 내 걱정 없이 가! 우즈도!)
+        </div>
+
+        <div class="narration">
+          띠띠는 슬퍼 보이는 헤일리를 향해 밝게 말했다. 신난다는 듯이 꼬리도 흔들며.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          띠띠가 처음 우리 집에 와서부터 지금까지 정말 행복했어.
+          띠띠는 소중한 우리 가족이야. 띠띠도……내가 너의 가족이었니?
+          우리와 함께하면서 힘든 건 없었어?
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          왈! 왈왈왈! (힘들지 않았어! 헤일리와 함께한 세상이 내 세상의 전부였는걸.
+          헤일리를 기다리고 함께하는 순간들, 정말 다 즐거웠어. 고마웠어!
+          내 걱정하지 말고 가!)
+        </div>
+
+        <div class="narration">[띠띠 플레이어는 우즈 플레이어에게 남기고 싶은 말을 전해주세요]</div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+          띠띠, 헤일리만큼 너와 긴 시간을 보낸 건 아니지만 내게도 띠띠는 소중했어.
+          여기서 다른 사람들 말 잘 듣고 더 많이 행복하다가 우리 다시 만나자.
+        </div>
+
+        <div class="narration">[우즈 플레이어는 띠띠 플레이어에게 남기고 싶은 말을 전해주세요]</div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          알겠어. 띠띠. 이번에는 우리가 너를 기다릴게. 꼭 더 많이 즐기다 와!
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">왈왈왈! (알았어! 어서 가!)</div>
+
+        <div class="narration">
+          헤일리와 우즈는 띠띠를 한참 바라보다가 눈을 감았다.
+          그러자 그들 주위로 빛이 감싸 올랐고 서서히 몸이 사라지기 시작했다.
+          정말로 이별이 다가오는 순간이었다. 띠띠는 꼬리를 흔들며 그들이 서 있던 자리로 다가갔다.
+        </div>
+
+        <div class="narration">
+          잠시 후, 우즈와 헤일리가 완전히 사라졌다. 띠띠는 그들이 서 있던 자리에 한참을.
+          한참을. 혼자. 우두커니 서 있었다.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">왈. (헤일리.)</div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">왈. (우즈.)</div>
+
+        <div class="narration">
+          더는 아무 대답이 없는 공원. 띠띠는 차가운 밤공기를 느끼며
+          왠지 마음이 시리는 기분이 들었다. 눈물이 툭 떨어질 것 같았지만,
+          띠띠는 그대로 뒤를 돌아 헤일리와 우즈와 함께 걸어온 길을 홀로 되돌아갔다.
+        </div>
+
+        <div class="narration">
+          돌아가는 길은 너무나 외롭고 힘들었다. 이제는 너무 늙어버린 탓인지,
+          오늘 하루 많은 무리를 했던 터인지, 홀로 돌아가는 것 때문인지.
+          유난히 돌아가는 길은 더욱 힘들었다. 하염없이 길게만 느껴지는
+          헤일리의 집으로 돌아가는 길이었다.
+        </div>
+
+        <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+
+        <!-- 헤일리의 집 -->
+        <div class="narration">헤일리의 집</div>
+        <div class="narration">
+          한참을 타박타박 걸어온 끝에 집에 도착했다.
+          1층에 들어서자마자 그리운 헤일리와 우즈의 향기가 났다.
+          그리고 끔찍했던 그날의 모습과 함께 둘의 피 냄새가 풍겨왔다.
+        </div>
+
+        <div class="narration">
+          다시 한번 둘의 죽음을 체감한 띠띠는 눈물이 나기 전에
+          헤일리의 방으로 곧장 향했다. 그리고는 헤일리의 이불을 입에 물고 구석으로 향했다.
+          며칠 동안의 피로가 한 번에 몰려왔다.
+        </div>
+
+        <div class="narration">
+          그리운 헤일리의 냄새를 맡으며, 띠띠는 눈을 감았다. 이제 푹 쉴 시간이다.
+        </div>
+
+        <div class="scene-divider">＊＊＊＊＊＊＊＊＊＊＊＊＊</div>
+
+        <!-- ?????? -->
+        <div class="narration">??????</div>
+        <div class="narration">
+          얼마나 잤는지 모를 만큼 시간이 흘렀다. 단잠을 잔 덕분인지
+          그간 잘 보이지 않던 앞이 또렷하게 보였다.
+          몸을 일으키자 평소와 달리 몸이 가볍게 일어났다.
+        </div>
+
+        <div class="narration">
+          신기한 마음에 뒤를 돌아보니, 여전히 잠들어 있는 띠띠 자신의 모습이 보인다.
+          헤일리의 이불을 입에 문 채 평온하게 숨을 멈춘 모습이었다.
+        </div>
+
+        <div class="narration">
+          순간 띠띠는 흠칫 놀랐지만, 이내 상황을 이해했다.
+          그리고는 공원을 향해 내달렸다. 헤일리와 우즈가 떠난 그곳으로.
+          달리고 또 달렸다. 너무나도 행복한 모습으로.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">헥헥……왈! (나도……! 나도 데려가 줘!)</div>
+
+        <div class="narration">
+          띠띠가 간절히 바라자 빛이 띠띠의 몸을 감쌌다.
+          잠시 의식이 흐려졌고, 눈을 뜨자 자신은 어느 다리 앞에 있었다.
+          분명 헤일리와 우즈는 저 다리 건너편에 있을 터. 띠띠는 신나게 다리를 향해 달려갔다.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">띠띠! 여기야! 왜 벌써 왔어!</div>
+
+        <div class="narration">
+          헤일리와 우즈가 씁쓸한 표정으로 나타났다.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">띠띠 이 녀석. 더 있다 오라니까, 금방 따라오면 어떻게 해!</div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          왈……왈! (하지만……보고 싶었는걸! 그리고 나 이제 안 아파!)
+        </div>
+
+        <div class="narration">
+          띠띠는 자신이 건강하다는 걸 보여주듯 방방 뛰었다.
+          헤일리와 우즈는 웃음이 터졌다.
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          그건 다행이네. 이번에는 우리가 너를 기다리려 했는데,
+          너무 빨리 와서 놀랐다고. 1년이고 10년이고 여기서 너를 기다릴 생각이었다고.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">왈왈! (기다려줘서 고마워!)</div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+          띠띠, 여기는 무지개 다리래. 우리처럼 띠띠 같은 가족을 둔 사람들이
+          다시 재회하는 곳이라고 하더라고. 우리 함께 다리를 건너자.
+        </div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          왈! (좋아! 우리 다리를 건너면 산책 가자! 나는 헤일리도 우즈도 산책도 너무 좋아!)
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">그래! 함께 가자, 산책!</div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">그러면 나는 너희 모습을 찍어줄게.</div>
+
+        <div class="line name speaker-ttiti">띠띠</div>
+        <div class="line said">
+          왈왈! (헤일리! 너와 나의 산책이 끝난 게 아니라서 나는 너무 행복해!)
+        </div>
+
+        <div class="line name">헤일리</div>
+        <div class="line said">
+          띠띠~ 우즈도 있잖아. 너와 나, 우리의 산책이야.
+        </div>
+
+        <div class="line name speaker-woods">우즈</div>
+        <div class="line said">
+          하하! 가면 띠띠랑 더욱더 친해져야겠는걸. 자 이제 가자!
+        </div>
+
+        <div class="narration">
+          그렇게 셋은 무지개 다리를 건너갔다. 죽은 이들답지 않은 밝은 표정으로
+          그들은 행복하게 떠났다. 아마도 이들은 앞으로도 행복할 것이다.
+          서로 사랑하고, 산책하며 행복하게 말이다.
+        </div>
+
+        <div class="narration">너와 나, 우리의 산책 FIN.</div>
+
+        </div>
+      </section>
+    `;
+
+    // 대본을 HTML로 주입
+    epiText.innerHTML = epilogueHtml;
+
+    // 안내 문구
     epiNote.textContent = "사건의 진상을 확인하고 싶은 분은 [사건의 진상]을 눌러주세요";
 
     epiBox.hidden = false;
     truthBox.hidden = true;
 
     epiBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+    });
 
   // 사건의 진상 버튼(엔딩/에필로그 둘 다) → 진상 박스 표시
   document.querySelectorAll('.truth-btn').forEach(btn => {
