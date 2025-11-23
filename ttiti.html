@@ -863,34 +863,54 @@
             </p>                     
           
             <!-- 히든 조사 전체 (처음엔 숨김) -->
-            <div id="hidden-sections" style="display:none;">
+            <div
+            id="hidden-sections"
+            class="hidden-investigation"
+            aria-hidden="true"
+            >
 
-            <div class="subpanel">
-              <strong class="white">히든 조사 1</strong>
-              <p>내용...</p>
+            <!-- 히든 조사 1 -->
+            <details class="acc">
+            <summary><span class="label">히든 조사 1</span></summary>
+            <div class="acc-body">
+            <p>내용...</p>
+            </div>
+            </details>
+            
+            <!-- 히든 조사 2 -->
+            <details class="acc">
+            <summary><span class="label">히든 조사 2</span></summary>
+            <div class="acc-body">
+            <p>내용...</p>
+            </div>
+            </details>
+
+            <!-- 히든 조사 3 -->
+            <details class="acc">
+            <summary><span class="label">히든 조사 3</span></summary>
+            <div class="acc-body">
+            <p>내용...</p>
+            </div>
+            </details>
+
+            <!-- 히든 조사 4 -->
+            <details class="acc">
+            <summary><span class="label">히든 조사 4</span></summary>
+            <div class="acc-body">
+            <p>내용...</p>
+            </div>
+            </details>
+
+            <!-- 히든 조사 5 -->
+            <details class="acc">
+            <summary><span class="label">히든 조사 5</span></summary>
+            <div class="acc-body">
+            <p>내용...</p>
+            </div>
+            </details>
+
             </div>
 
-            <div class="subpanel">
-              <strong class="white">히든 조사 2</strong>
-              <p>내용...</p>
-            </div>
-
-            <div class="subpanel">
-              <strong class="white">히든 조사 3</strong>
-              <p>내용...</p>
-            </div>
-
-            <div class="subpanel">
-              <strong class="white">히든 조사 4</strong>
-              <p>내용...</p>
-            </div>
-
-            <div class="subpanel">
-              <strong class="white">히든 조사 5</strong>
-              <p>내용...</p>
-            </div>
-
-            </div>
 
           <p><span class="yellow">「1차 조사 및 논의」가 끝났다면 「추가 자료 확인」을 진행하세요.</span></p>
         </div>
@@ -1019,7 +1039,7 @@
       abilityInput.readOnly = true;
 
       if (hiddenMsg) {
-        hiddenMsg.textContent = '띠띠가 E(이)능력을 사용합니다. 지금부터 히든 조사가 가능합니다.';
+        hiddenMsg.textContent = '띠띠가 E(이)능력을 사용합니다. 띠띠가 떠도는 영혼과 대화를 나눈 내용입니다.';
       }
 
       // 화면 아래로 부드럽게 스크롤
