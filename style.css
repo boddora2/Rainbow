@@ -291,6 +291,24 @@ body {
   }
 }
 
-  #ending-text, #epilogue-text, #truth-text {
+#ending-text, #truth-text {
   white-space: pre-line;
+  }
+
+  /* 에필로그는 대본 박스(HTML)라서 기본값 사용 */
+  #epilogue-text {
+  white-space: normal;
+  }
+
+.cover-wrap {
+  margin: 16px 0 12px;
+}
+
+.cover-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;   /* 16:9 유지 */
+  object-fit: cover;      /* 넘치면 잘라서 꽉 채우기 */
+  border-radius: 16px;    /* 모서리 살짝 둥글게 (취향껏) */
+  display: block;
 }
