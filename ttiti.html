@@ -143,75 +143,100 @@
    히든 조사 조건 영역
    ───────────────────────────── */
 
-   .hidden-condition {
-  margin-top: 16px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-
-.hidden-condition p {
-  margin: 4px 0 10px;
-  line-height: 1.6;
-}
-
+/* 히든 조사: 입력줄 박스 */
 .hidden-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-  margin: 6px 0 4px;
+  margin: 16px 0 12px;
+  justify-content: center;   /* 입력칸 + 능력 라벨 둘 다 가운데 정렬 */
 }
 
-/* [ ] 능력 입력칸 */
-.hidden-input {
-  width: 80px;
-  padding: 6px 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(0,0,0,0.2);
+/* 능력 label */
+.hidden-label-inline {
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* 입력칸 자체 디자인 */
+.hidden-input {
+  width: 90px;
+  padding: 8px 10px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.25);
+
+  background: rgba(255,255,255,0.9);   /* 밝은 흰색 배경 */
+  color: #000;                         /* 글자는 검정 */
+
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+
+  outline: none;
+  transition: all .2s ease;
+}
+
+/* placeholder를 더 예쁜 회색으로 */
+.hidden-input::placeholder {
+  color: rgba(0,0,0,0.45);   /* ㅁ 색 */
+  font-weight: 500;
+}
+
+/* 포커스 시 빛나는 효과 */
+.hidden-input:focus {
+  background: rgba(255,255,255,1);
+  border-color: rgba(255,255,255,0.8);
+  box-shadow: 0 0 6px rgba(255,255,255,0.5);
 }
 
 /* 히든 조사 시작 버튼 */
 .hidden-btn {
-  padding: 7px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.04);
-  color: #fff;
-  font-size: 13px;
+  margin: 12px auto 4px;
+  display: block;
+  width: 170px;
+  padding: 10px 0;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+
+  background: rgba(255,255,255,0.9);
+  color: #000;
+
+  font-weight: 800;
+  font-size: 15px;
+  text-align: center;
   cursor: pointer;
-  transition: background .15s ease, border-color .15s ease, opacity .15s ease;
+
+  transition: all .25s ease;
 }
 
+/* 호버 */
+.hidden-btn:hover:not(:disabled) {
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+/* 비활성화 */
 .hidden-btn:disabled {
   opacity: 0.4;
-  cursor: default;
+  cursor: not-allowed;
+  background: rgba(255,255,255,0.4);
+  color: rgba(0,0,0,0.45);
 }
 
-.hidden-btn:not(:disabled):hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.4);
-}
-
-/* 안내 문구 */
+/* 설명 문구 */
 .hidden-msg {
+  text-align: center;
   font-size: 13px;
   color: var(--muted);
-  margin: 2px 0 0;
+  margin-top: 6px;
 }
 
-/* 히든 조사 내용 블럭 (처음엔 숨김) */
 .hidden-investigation {
-  margin-top: 10px;
   display: none;
-}
-
-.hidden-investigation.active {
-  display: block;
 }
 
 </style>
@@ -738,6 +763,135 @@
         <summary><span class="label">1차 조사 및 논의</span></summary>
         <div class="acc-body">
           <span class="yellow">【20분】</span> 동안 각자의 이야기와 조사 내용을 토대로 자유롭게 이야기를 나눠주세요.
+
+          <div class="subpanel">
+            <strong class="yellow">각자의 조사 내용: 띠띠</strong>
+            <br>
+          
+            <div class="char-accordion">
+              <!-- 용의자의 집 1 -->
+              <details class="char-acc">
+                <summary>
+                  <span class="white">제이슨의 집</span>
+                </summary>
+                <div class="char-body">
+                  <ul>
+                    <li>무엇을 쓸까~</li>
+                  </ul>
+                </div>
+              </details>
+          
+              <!-- 용의자의 집 2 -->
+              <details class="char-acc">
+                <summary>
+                  <span class="white">톰의 집</span>
+                </summary>
+                <div class="char-body">
+                  <ul>
+                    <li>무엇을 쓸까~</li>
+                  </ul>
+                </div>
+              </details>
+          
+              <!-- 용의자의 집 3 -->
+              <details class="char-acc">
+                <summary>
+                  <span class="white">마크의 집</span>
+                </summary>
+                <div class="char-body">
+                  <ul>
+                    <li>무엇을 쓸까~</li>
+                  </ul>
+                </div>
+              </details>
+          
+              <!-- 용의자의 집 4 -->
+              <details class="char-acc">
+                <summary>
+                  <span class="white">레오의 집</span>
+                </summary>
+                <div class="char-body">
+                  <ul>
+                    <li>무엇을 쓸까~</li>
+                  </ul>
+                </div>
+              </details>
+          
+              <!-- 용의자의 집 5 -->
+              <details class="char-acc">
+                <summary>
+                  <span class="white">루카스의 집</span>
+                </summary>
+                <div class="char-body">
+                  <ul>
+                    <li>무엇을 쓸까~</li>
+                  </ul>
+                </div>
+              </details>
+          
+            </div>
+          </div>
+
+          <div class="subpanel hidden-condition">
+            <strong class="yellow">히든 조사</strong>
+            <p><span class="yellow">[조건]</span><span class="white">을 충족하면 「히든 조사」가 가능합니다.</span></p>
+          
+            <!-- 윗줄: [ E ] 능력 -->
+            <div class="hidden-row">
+              <input
+              id="ttiti-ability"
+              class="hidden-input"
+              type="text"
+              inputmode="text"
+              autocomplete="off"
+              placeholder="ㅁ"
+            />            
+              <span class="hidden-label-inline">능력</span>
+            </div>
+            
+            <button
+              type="button"
+              id="ttiti-hidden-start"
+              class="hidden-btn"
+              disabled
+            >
+              히든 조사 시작
+            </button>
+            
+            <p id="ttiti-hidden-msg" class="hidden-msg">
+              올바른 값을 입력하면 「히든 조사 시작」 버튼이 활성화됩니다.
+            </p>                     
+          
+            <!-- 히든 조사 전체 (처음엔 숨김) -->
+            <div id="hidden-sections" style="display:none;">
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 1</strong>
+              <p>내용...</p>
+            </div>
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 2</strong>
+              <p>내용...</p>
+            </div>
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 3</strong>
+              <p>내용...</p>
+            </div>
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 4</strong>
+              <p>내용...</p>
+            </div>
+
+            <div class="subpanel">
+              <strong class="white">히든 조사 5</strong>
+              <p>내용...</p>
+            </div>
+
+            </div>
+
           <p><span class="yellow">「1차 조사 및 논의」가 끝났다면 「추가 자료 확인」을 진행하세요.</span></p>
         </div>
       </details>
@@ -830,8 +984,48 @@
   import { guard, logout } from "./gate.js";
   guard();
   document.querySelector('#logout')?.addEventListener('click', (e) => {
-    e.preventDefault(); logout();
+    e.preventDefault(); 
+    logout();
   });
+
+  // ───────── 히든 조사(띠띠용) 스크립트 ─────────
+  const abilityInput  = document.querySelector('#ttiti-ability');
+  const hiddenBtn     = document.querySelector('#ttiti-hidden-start');
+  const hiddenSection = document.querySelector('#hidden-sections');   // ★ 여기!
+  const hiddenMsg     = document.querySelector('#ttiti-hidden-msg');
+
+  if (abilityInput && hiddenBtn && hiddenSection) {
+    const checkAbility = () => {
+      const value = abilityInput.value.trim();
+      // 조건: 정확히 "E"일 때만 버튼 활성화
+      if (value === 'E') {
+        hiddenBtn.disabled = false;
+      } else {
+        hiddenBtn.disabled = true;
+      }
+    };
+
+    // 입력값 감시
+    abilityInput.addEventListener('input', checkAbility);
+
+    // 버튼 클릭 시 히든 조사 열기
+    hiddenBtn.addEventListener('click', () => {
+      // 히든 섹션 표시
+      hiddenSection.style.display = 'block';
+      hiddenSection.setAttribute('aria-hidden', 'false');
+
+      // 더 이상 수정 못 하게 잠금
+      hiddenBtn.disabled = true;
+      abilityInput.readOnly = true;
+
+      if (hiddenMsg) {
+        hiddenMsg.textContent = '띠띠가 E(이)능력을 사용합니다. 지금부터 히든 조사가 가능합니다.';
+      }
+
+      // 화면 아래로 부드럽게 스크롤
+      hiddenSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
 </script>
 </body>
 </html>
