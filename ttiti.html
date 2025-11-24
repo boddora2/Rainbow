@@ -1338,43 +1338,41 @@
   });
 
   // ───────── 히든 조사(띠띠용) 스크립트 ─────────
-  const abilityInput  = document.querySelector('#ttiti-ability');
-  const hiddenBtn     = document.querySelector('#ttiti-hidden-start');
-  const hiddenSection = document.querySelector('#hidden-sections');   // ★ 여기!
-  const hiddenMsg     = document.querySelector('#ttiti-hidden-msg');
+  // 페이지 안에 있는 모든 .hidden-condition 블럭을 각각 따로 세팅
+  document.querySelectorAll('.hidden-condition').forEach((block) => {
+    const abilityInput  = block.querySelector('.hidden-input');
+    const hiddenBtn     = block.querySelector('.hidden-btn');
+    const hiddenSection = block.querySelector('.hidden-investigation');
+    const hiddenMsg     = block.querySelector('.hidden-msg');
 
-  if (abilityInput && hiddenBtn && hiddenSection) {
+    // 혹시 구조가 어긋난 블럭은 스킵
+    if (!abilityInput || !hiddenBtn || !hiddenSection) return;
+
     const checkAbility = () => {
       const value = abilityInput.value.trim();
       // 조건: 정확히 "E"일 때만 버튼 활성화
-      if (value === 'E') {
-        hiddenBtn.disabled = false;
-      } else {
-        hiddenBtn.disabled = true;
-      }
+      hiddenBtn.disabled = (value !== 'E');
     };
 
     // 입력값 감시
     abilityInput.addEventListener('input', checkAbility);
 
-    // 버튼 클릭 시 히든 조사 열기
+    // 버튼 클릭 시 해당 블럭의 히든 조사만 열기
     hiddenBtn.addEventListener('click', () => {
-      // 히든 섹션 표시
       hiddenSection.style.display = 'block';
       hiddenSection.setAttribute('aria-hidden', 'false');
 
-      // 더 이상 수정 못 하게 잠금
       hiddenBtn.disabled = true;
       abilityInput.readOnly = true;
 
       if (hiddenMsg) {
-        hiddenMsg.textContent = '띠띠가 E(이)능력을 사용합니다. 띠띠가 떠도는 영혼과 대화를 나눈 내용입니다.';
+        hiddenMsg.textContent =
+          '띠띠가 E(이)능력을 사용합니다. 띠띠가 떠도는 영혼과 대화를 나눈 내용입니다.';
       }
 
-      // 화면 아래로 부드럽게 스크롤
-      hiddenSection.scrollIntoView({ behavior: 'smooth' });
+      hiddenSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-  }
+  });
 </script>
 </body>
 </html>
