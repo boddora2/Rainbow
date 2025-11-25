@@ -1,4 +1,4 @@
-const HASH_HEX = "2514c7ca5955fe3777b163a48774642fa35bd1bc17ba5aef88bb30e98aa200ec"; // SHA-256("B0DDo90d")
+const HASH_HEX = "cdf7e2a640317327244d9789c7ebe2b6b81b1e62df1fd2d402df4cc301024347"; // SHA-256("0Ne2Er0")
 const TOKEN_KEY = "rainbow_auth";
 
 const encoder = new TextEncoder();
