@@ -7,282 +7,280 @@
 <link rel="stylesheet" href="style.css?v=14" />
 
 <style>
-/* 안내 문구 */
-.note {
-  padding: 12px 14px;
-  border: 1px dashed rgba(255,255,255,0.18);
-  border-radius: 10px;
-  background: rgba(255,255,255,0.03);
-  color: var(--muted);
-  line-height: 1.65;
-  margin-bottom: 16px;
-}
-
-/* 아코디언 */
-.acc { border-top: 1px solid rgba(255,255,255,0.12); }
-.acc:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
-.acc summary {
-  list-style: none; cursor: pointer;
-  padding: 14px 28px 14px 0; margin: 0;
-  font-weight: 700; font-size: 16px; position: relative;
-}
-.acc summary::-webkit-details-marker { display: none; }
-/* 화살표: 닫힘=아래(▾), 열림=위(▴) */
-.acc summary::after {
-  content: '▾';
-  position: absolute; right: 0; top: 50%;
-  transform: translateY(-50%); transition: opacity .2s ease; opacity: .9;
-}
-.acc[open] summary::after { content: '▴'; }
-.acc .acc-body { padding: 8px 0 16px; color: var(--muted); line-height: 1.75; }
-.acc summary .label { font-weight: 800; }
-
-/* ─────────────────────────────
-   대본 레이아웃: 말하는 사람 / 대사
-   ───────────────────────────── */
-.section .script {
-  display: grid;
-  grid-template-columns: 120px 1fr;   /* 왼쪽 고정, 오른쪽 가변 */
-  column-gap: 12px;
-  row-gap: 10px;
-  align-items: start;
-  margin: 14px 0 6px;
-}
-
-/* 각 대사 줄 */
-.script .line {
-  display: contents; /* 자식만 그리드에 올리고 부모는 흐름만 */
-}
-
-/* 왼쪽: 스피커(고정폭, 우측 정렬) */
-.script .speaker {
-  grid-column: 1 / 2;
-  justify-self: end;
-  text-align: right;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: 0.2px;
-  line-height: 1.75;
-  padding-top: 2px;                /* 첫줄 높이 맞춤 */
-}
-
-/* 오른쪽: 대사(가변폭) */
-.script .utterance {
-  grid-column: 2 / -1;
-  line-height: 1.75;
-  color: #fff;
-  white-space: pre-wrap;           /* 줄바꿈/띄어쓰기 유지 */
-  word-break: keep-all;
-  padding: 8px 12px;
-  border-left: 2px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.04);
-  border-radius: 8px;
-}
-
-/* 내레이션/지문: 두 칸 전체 사용 */
-.script .narration {
-  grid-column: 1 / -1;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.92);
-  background: rgba(255,255,255,0.03);
-  border: 1px dashed rgba(255,255,255,0.12);
-  border-radius: 8px;
-  padding: 10px 12px;
-}
-
-.script .scene-divider {
-  grid-column: 1 / -1;
-  text-align: center;
-  opacity: .7;
-  letter-spacing: 2px;
-  margin: 4px 0;
-}
-
-/* 강조용 색 (원하면 스피커에 클래스 추가해서 사용) */
-.red{color:rgb(220,50,60)} .orange{color:rgb(220,140,80)}
-.yellow{color:rgb(230,190,90)} .green{color:rgb(100,160,100)}
-.blue{color:rgb(90,150,220)} .purple{color:rgb(160,100,190)}
-.pink{color:rgb(220,140,190)}
-
-/* 모바일: 세로 스택 + 시작점 유지 */
-@media (max-width: 680px) {
-  .section .script { grid-template-columns: 1fr; row-gap: 6px; }
-  .script .speaker {
-    justify-self: start; text-align: left;
-    padding: 2px 0 0; opacity: .9;
+  /* 안내 문구 */
+  .note {
+    padding: 12px 14px;
+    border: 1px dashed rgba(255,255,255,0.18);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 16px;
   }
-  .script .utterance { border-left: 0; }
-}
-
-/* 내비 버튼 */
-.nav-buttons {
-  display:flex; justify-content:space-between; gap:12px; margin-top:16px;
-}
-.nav-btn {
-  display:inline-block; padding:10px 14px; border-radius:10px;
-  background:rgba(255,255,255,0.06); color:#fff; text-decoration:none;
-  border:1px solid rgba(255,255,255,0.12);
-}
-.nav-btn:hover { background:rgba(255,255,255,0.1); }
-
-/* 안쪽 [참고] 캐릭터 설명 아코디언도 같은 화살표 사용 */
-.acc-sub summary::after {
-  content: '▾';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: opacity .2s ease;
-  opacity: .9;
-}
-
-.acc-sub[open] summary::after {
-  content: '▴';
-}
-
-/* ─────────────────────────────
-   히든 조사 조건 영역
-   ───────────────────────────── */
-
-/* 히든 조사: 입력줄 박스 */
-.hidden-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 16px 0 12px;
-  justify-content: center;   /* 입력칸 + 능력 라벨 둘 다 가운데 정렬 */
-}
-
-/* 능력 label */
-.hidden-label-inline {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-/* 입력칸 자체 디자인 */
-.hidden-input {
-  width: 90px;
-  padding: 8px 10px;
-
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.25);
-
-  background: rgba(255,255,255,0.9);   /* 밝은 흰색 배경 */
-  color: #000;                         /* 글자는 검정 */
-
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-
-  outline: none;
-  transition: all .2s ease;
-}
-
-/* placeholder를 더 예쁜 회색으로 */
-.hidden-input::placeholder {
-  color: rgba(0,0,0,0.45);   /* ㅁ 색 */
-  font-weight: 500;
-}
-
-/* 포커스 시 빛나는 효과 */
-.hidden-input:focus {
-  background: rgba(255,255,255,1);
-  border-color: rgba(255,255,255,0.8);
-  box-shadow: 0 0 6px rgba(255,255,255,0.5);
-}
-
-/* 히든 조사 시작 버튼 */
-.hidden-btn {
-  margin: 12px auto 4px;
-  display: block;
-  width: 170px;
-  padding: 10px 0;
-
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.25);
-
-  background: rgba(255,255,255,0.9);
-  color: #000;
-
-  font-weight: 800;
-  font-size: 15px;
-  text-align: center;
-  cursor: pointer;
-
-  transition: all .25s ease;
-}
-
-/* 호버 */
-.hidden-btn:hover:not(:disabled) {
-  background: #ffffff;
-  box-shadow: 0 0 8px rgba(255,255,255,0.6);
-}
-
-/* 비활성화 */
-.hidden-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  background: rgba(255,255,255,0.4);
-  color: rgba(0,0,0,0.45);
-}
-
-/* 설명 문구 */
-.hidden-msg {
-  text-align: center;
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 6px;
-}
-
-.hidden-investigation {
-  display: none;
-}
-
-
-/* ─────────────────────────────
-   2차 조사 · 논의 안의 [지시] 탭 스타일
-   ───────────────────────────── */
-   .acc-guide {
-  margin-top: 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.22);
-  background: linear-gradient(
-    135deg,
-    rgba(110,168,254,0.25),
-    rgba(11,11,15,0.95)
-  );
-}
-
-/* 지시 summary 쪽(탭 헤더 느낌) */
-.acc-guide summary {
-  padding: 10px 40px 10px 14px;
-  font-size: 15px;
-  position: relative;
-}
-
-/* 지시 텍스트 색 조금 더 선명하게 */
-.acc-guide summary .white {
-  font-weight: 800;
-  color: #ffffff;
-}
-
-/* 지시 내용 박스 */
-.acc-guide .acc-body {
-  padding: 10px 14px 14px;
-  line-height: 1.8;
-  color: #e9e9f1;
-  background: rgba(3, 8, 20, 0.9);
-  border-radius: 0 0 12px 12px;
-}
-
-/* 지시 탭의 화살표 위치만 살짝 안쪽으로 */
-.acc-guide summary::after {
-  right: 14px;
-}
-
-</style>
+  
+  /* 아코디언 */
+  .acc { border-top: 1px solid rgba(255,255,255,0.12); }
+  .acc:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .acc summary {
+    list-style: none; cursor: pointer;
+    padding: 14px 28px 14px 0; margin: 0;
+    font-weight: 700; font-size: 16px; position: relative;
+  }
+  .acc summary::-webkit-details-marker { display: none; }
+  /* 화살표: 닫힘=아래(▾), 열림=위(▴) */
+  .acc summary::after {
+    content: '▾';
+    position: absolute; right: 0; top: 50%;
+    transform: translateY(-50%); transition: opacity .2s ease; opacity: .9;
+  }
+  .acc[open] summary::after { content: '▴'; }
+  .acc .acc-body { padding: 8px 0 16px; color: var(--muted); line-height: 1.75; }
+  .acc summary .label { font-weight: 800; }
+  
+  /* ─────────────────────────────
+     대본 레이아웃: 말하는 사람 / 대사
+     ───────────────────────────── */
+  .section .script {
+    display: grid;
+    grid-template-columns: 120px 1fr;   /* 왼쪽 고정, 오른쪽 가변 */
+    column-gap: 12px;
+    row-gap: 10px;
+    align-items: start;
+    margin: 14px 0 6px;
+  }
+  
+  /* 각 대사 줄 */
+  .script .line {
+    display: contents; /* 자식만 그리드에 올리고 부모는 흐름만 */
+  }
+  
+  /* 왼쪽: 스피커(고정폭, 우측 정렬) */
+  .script .speaker {
+    grid-column: 1 / 2;
+    justify-self: end;
+    text-align: right;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.2px;
+    line-height: 1.75;
+    padding-top: 2px;                /* 첫줄 높이 맞춤 */
+  }
+  
+  /* 오른쪽: 대사(가변폭) */
+  .script .utterance {
+    grid-column: 2 / -1;
+    line-height: 1.75;
+    color: #fff;
+    white-space: pre-wrap;           /* 줄바꿈/띄어쓰기 유지 */
+    word-break: keep-all;
+    padding: 8px 12px;
+    border-left: 2px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+  }
+  
+  /* 내레이션/지문: 두 칸 전체 사용 */
+  .script .narration {
+    grid-column: 1 / -1;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .script .scene-divider {
+    grid-column: 1 / -1;
+    text-align: center;
+    opacity: .7;
+    letter-spacing: 2px;
+    margin: 4px 0;
+  }
+  
+  /* 강조용 색 (원하면 스피커에 클래스 추가해서 사용) */
+  .red{color:rgb(220,50,60)} .orange{color:rgb(220,140,80)}
+  .yellow{color:rgb(230,190,90)} .green{color:rgb(100,160,100)}
+  .blue{color:rgb(90,150,220)} .purple{color:rgb(160,100,190)}
+  .pink{color:rgb(220,140,190)}
+  
+  /* 모바일: 세로 스택 + 시작점 유지 */
+  @media (max-width: 680px) {
+    .section .script { grid-template-columns: 1fr; row-gap: 6px; }
+    .script .speaker {
+      justify-self: start; text-align: left;
+      padding: 2px 0 0; opacity: .9;
+    }
+    .script .utterance { border-left: 0; }
+  }
+  
+  /* 내비 버튼 */
+  .nav-buttons {
+    display:flex; justify-content:space-between; gap:12px; margin-top:16px;
+  }
+  .nav-btn {
+    display:inline-block; padding:10px 14px; border-radius:10px;
+    background:rgba(255,255,255,0.06); color:#fff; text-decoration:none;
+    border:1px solid rgba(255,255,255,0.12);
+  }
+  .nav-btn:hover { background:rgba(255,255,255,0.1); }
+  
+  /* 안쪽 [참고] 캐릭터 설명 아코디언도 같은 화살표 사용 */
+  .acc-sub summary::after {
+    content: '▾';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity .2s ease;
+    opacity: .9;
+  }
+  
+  .acc-sub[open] summary::after {
+    content: '▴';
+  }
+  
+  /* ─────────────────────────────
+     히든 조사 조건 영역
+     ───────────────────────────── */
+  
+  /* 히든 조사: 입력줄 박스 */
+  .hidden-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0 12px;
+    justify-content: center;   /* 입력칸 + 능력 라벨 둘 다 가운데 정렬 */
+  }
+  
+  /* 능력 label */
+  .hidden-label-inline {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  /* 입력칸 자체 디자인 */
+  .hidden-input {
+    width: 90px;
+    padding: 8px 10px;
+  
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.25);
+  
+    background: rgba(255,255,255,0.9);   /* 밝은 흰색 배경 */
+    color: #000;                         /* 글자는 검정 */
+  
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+  
+    outline: none;
+    transition: all .2s ease;
+  }
+  
+  /* placeholder를 더 예쁜 회색으로 */
+  .hidden-input::placeholder {
+    color: rgba(0,0,0,0.45);   /* ㅁ 색 */
+    font-weight: 500;
+  }
+  
+  /* 포커스 시 빛나는 효과 */
+  .hidden-input:focus {
+    background: rgba(255,255,255,1);
+    border-color: rgba(255,255,255,0.8);
+    box-shadow: 0 0 6px rgba(255,255,255,0.5);
+  }
+  
+  /* 히든 조사 시작 버튼 */
+  .hidden-btn {
+    margin: 12px auto 4px;
+    display: block;
+    width: 170px;
+    padding: 10px 0;
+  
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+  
+    background: rgba(255,255,255,0.9);
+    color: #000;
+  
+    font-weight: 800;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+  
+    transition: all .25s ease;
+  }
+  
+  /* 호버 */
+  .hidden-btn:hover:not(:disabled) {
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(255,255,255,0.6);
+  }
+  
+  /* 비활성화 */
+  .hidden-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(255,255,255,0.4);
+    color: rgba(0,0,0,0.45);
+  }
+  
+  /* 설명 문구 */
+  .hidden-msg {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  
+  .hidden-investigation {
+    display: none;
+  }
+  
+  /* ─────────────────────────────
+     2차 조사 · 논의 안의 [지시] 탭 스타일
+     ───────────────────────────── */
+     .acc-guide {
+    margin-top: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: linear-gradient(
+      135deg,
+      rgba(110,168,254,0.25),
+      rgba(11,11,15,0.95)
+    );
+  }
+  
+  /* 지시 summary 쪽(탭 헤더 느낌) */
+  .acc-guide summary {
+    padding: 10px 40px 10px 14px;
+    font-size: 15px;
+    position: relative;
+  }
+  
+  /* 지시 텍스트 색 조금 더 선명하게 */
+  .acc-guide summary .white {
+    font-weight: 800;
+    color: #ffffff;
+  }
+  
+  /* 지시 내용 박스 */
+  .acc-guide .acc-body {
+    padding: 10px 14px 14px;
+    line-height: 1.8;
+    color: #e9e9f1;
+    background: rgba(3, 8, 20, 0.9);
+    border-radius: 0 0 12px 12px;
+  }
+  
+  /* 지시 탭의 화살표 위치만 살짝 안쪽으로 */
+  .acc-guide summary::after {
+    right: 14px;
+  }
+  
+  </style>
 </head>
 <body>
 <main class="container">
