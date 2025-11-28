@@ -35,7 +35,21 @@
   }
   .acc[open] summary::after { content: '▴'; }
   .acc .acc-body { padding: 8px 0 16px; color: var(--muted); line-height: 1.75; }
+  .acc .acc-body .acc-guide summary::after {
+    content: '▾';
+    position: absolute; right: 14px; top: 50%;
+    transform: translateY(-50%); transition: opacity .2s ease; opacity: .9;
+  }
+  .acc .acc-body .acc-guide[open] summary::after { content: '▴'; }
+  
   .acc summary .label { font-weight: 800; }
+  
+  .acc .char-acc summary::after {
+    content: '▾';
+    position: absolute; right: 0; top: 50%;
+    transform: translateY(-50%); transition: opacity .2s ease; opacity: .9;
+  }
+  .acc .char-acc[open] summary::after { content: '▴'; }
   
   /* ─────────────────────────────
      대본 레이아웃: 말하는 사람 / 대사
@@ -125,7 +139,7 @@
   .nav-btn:hover { background:rgba(255,255,255,0.1); }
   
   /* 안쪽 [참고] 캐릭터 설명 아코디언도 같은 화살표 사용 */
-  .acc-sub summary::after {
+  .acc .acc-sub summary::after {
     content: '▾';
     position: absolute;
     right: 0;
@@ -135,7 +149,7 @@
     opacity: .9;
   }
   
-  .acc-sub[open] summary::after {
+  .acc .acc-sub[open] summary::after {
     content: '▴';
   }
   
@@ -280,7 +294,7 @@
     right: 14px;
   }
   
-  </style>
+  </style>  
 </head>
 <body>
 <main class="container">
